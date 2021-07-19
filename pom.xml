@@ -22,5 +22,37 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.locationtech.jts</groupId>
+            <artifactId>jts-core</artifactId>
+            <version>1.18.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-epsg-hsql</artifactId>
+            <version>22-RC</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-main</artifactId>
+            <version>22-RC</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-geojson</artifactId>
+            <version>22-RC</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>geotools</id>
+            <name>geotools</name>
+            <url>http://maven.icm.edu.pl/artifactory/repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 </project>

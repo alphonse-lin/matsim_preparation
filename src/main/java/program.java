@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 public class program {
     public static void main(String[] args) throws IOException {
         var filePath="src/main/resources/building.geojson";
-        var result=dataIO.Read(filePath);
+        var attr=new String[]{"function", "brepID","baseHeight", "totalArea","floors"};
+
+        var result=dataIO.Read(filePath,attr);
     }
 }

@@ -3,19 +3,19 @@ package matsim.db;
 public class BasePopulation {
 
     public String id;
-    public int layerMin;
-    public int layerMax;
-    public int people;
-    public double farMin;
-    public double farMax;
-    public double maxDensity;
-    public double minGreen;
-    public double maxHeight;
+    public Double layerMin;
+    public Double layerMax;
+    public Double people;
+    public Double farMin;
+    public Double farMax;
+    public Double maxDensity;
+    public Double minGreen;
+    public Double maxHeight;
     public String funcName;
     public String relativeName;
 
-    public BasePopulation(String Id, int LayerMin, int LayerMax, int People, double FARMin, double FARMax,
-                          double MaxDensity, double MinGreen, double MaxHeight, String FuncName, String RelativeName
+    public BasePopulation(String Id, Double LayerMin, Double LayerMax, Double People, Double FARMin, Double FARMax,
+                          Double MaxDensity, Double MinGreen, Double MaxHeight, String FuncName, String RelativeName
     )
     {
         id = Id;

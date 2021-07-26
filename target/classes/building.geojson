@@ -19,7 +19,7 @@
         "brepHeight": 79.8,
         "totalArea": 26144.359,
         "floors": 19,
-        "function": "H",
+        "function": "R",
         "EC": [
           1307.2179500000002,
           2091.5487200000002
@@ -86,7 +86,7 @@
         "brepHeight": 84.0,
         "totalArea": 27189.843,
         "floors": 20,
-        "function": "H",
+        "function": "R",
         "EC": [
           1359.49215,
           2175.18744
@@ -361,7 +361,7 @@
         "brepHeight": 92.4,
         "totalArea": 26519.922,
         "floors": 22,
-        "function": "H",
+        "function": "R",
         "EC": [
           1325.9961,
           2121.5937599999997
@@ -416,7 +416,7 @@
         "brepHeight": 92.4,
         "totalArea": 31597.539,
         "floors": 22,
-        "function": "H",
+        "function": "R",
         "EC": [
           1579.87695,
           2527.80312
@@ -695,7 +695,7 @@
         "brepHeight": 75.6,
         "totalArea": 25919.832,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1295.9916,
           2073.5865599999997
@@ -746,7 +746,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.216,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0108,
           2073.61728
@@ -1001,7 +1001,7 @@
         "brepHeight": 75.6,
         "totalArea": 25919.832,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1295.9916,
           2073.5865599999997
@@ -1052,7 +1052,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.216,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0108,
           2073.61728
@@ -1307,7 +1307,7 @@
         "brepHeight": 75.6,
         "totalArea": 25919.712,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1295.9856,
           2073.57696
@@ -1358,7 +1358,7 @@
         "brepHeight": 75.6,
         "totalArea": 25919.712,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1295.9856,
           2073.57696
@@ -1613,7 +1613,7 @@
         "brepHeight": 75.6,
         "totalArea": 25919.832,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1295.9916,
           2073.5865599999997
@@ -1664,7 +1664,7 @@
         "brepHeight": 79.8,
         "totalArea": 25812.133,
         "floors": 19,
-        "function": "H",
+        "function": "R",
         "EC": [
           1290.6066500000002,
           2064.97064
@@ -1923,7 +1923,7 @@
         "brepHeight": 75.6,
         "totalArea": 25248.462,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1262.4231,
           2019.87696
@@ -1974,7 +1974,7 @@
         "brepHeight": 75.6,
         "totalArea": 25919.832,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1295.9916,
           2073.5865599999997
@@ -2229,7 +2229,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.0,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0,
           2073.6
@@ -2280,7 +2280,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.0,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0,
           2073.6
@@ -2535,7 +2535,7 @@
         "brepHeight": 84.0,
         "totalArea": 25331.887,
         "floors": 20,
-        "function": "H",
+        "function": "R",
         "EC": [
           1266.59435,
           2026.55096
@@ -2594,7 +2594,7 @@
         "brepHeight": 84.0,
         "totalArea": 28800.24,
         "floors": 20,
-        "function": "H",
+        "function": "R",
         "EC": [
           1440.0120000000002,
           2304.0192
@@ -2857,7 +2857,7 @@
         "brepHeight": 84.0,
         "totalArea": 25325.823,
         "floors": 20,
-        "function": "H",
+        "function": "R",
         "EC": [
           1266.29115,
           2026.06584
@@ -2912,7 +2912,7 @@
         "brepHeight": 100.8,
         "totalArea": 29057.397,
         "floors": 24,
-        "function": "H",
+        "function": "R",
         "EC": [
           1452.86985,
           2324.5917600000002
@@ -3183,7 +3183,7 @@
         "brepHeight": 75.6,
         "totalArea": 25393.287,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1269.66435,
           2031.46296
@@ -3234,7 +3234,7 @@
         "brepHeight": 75.6,
         "totalArea": 25393.287,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1269.66435,
           2031.46296
@@ -3509,7 +3509,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.0,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0,
           2073.6
@@ -3560,7 +3560,7 @@
         "brepHeight": 79.8,
         "totalArea": 25878.128,
         "floors": 19,
-        "function": "H",
+        "function": "R",
         "EC": [
           1293.9064,
           2070.2502400000003
@@ -3835,7 +3835,7 @@
         "brepHeight": 88.2,
         "totalArea": 25517.896,
         "floors": 21,
-        "function": "H",
+        "function": "R",
         "EC": [
           1275.8948,
           2041.4316800000001
@@ -3894,7 +3894,7 @@
         "brepHeight": 92.4,
         "totalArea": 30026.325,
         "floors": 22,
-        "function": "H",
+        "function": "R",
         "EC": [
           1501.31625,
           2402.106
@@ -4189,7 +4189,7 @@
         "brepHeight": 79.8,
         "totalArea": 26496.855,
         "floors": 19,
-        "function": "H",
+        "function": "R",
         "EC": [
           1324.84275,
           2119.7484
@@ -4244,7 +4244,7 @@
         "brepHeight": 88.2,
         "totalArea": 27375.661,
         "floors": 21,
-        "function": "H",
+        "function": "R",
         "EC": [
           1368.78305,
           2190.05288
@@ -4511,7 +4511,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.0,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0,
           2073.6
@@ -4562,7 +4562,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.0,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0,
           2073.6
@@ -4817,7 +4817,7 @@
         "brepHeight": 75.6,
         "totalArea": 25899.428,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1294.9714000000001,
           2071.95424
@@ -4872,7 +4872,7 @@
         "brepHeight": 75.6,
         "totalArea": 25606.971,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1280.3485500000002,
           2048.5576800000003
@@ -5135,7 +5135,7 @@
         "brepHeight": 75.6,
         "totalArea": 25663.243,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1283.16215,
           2053.05944
@@ -5186,7 +5186,7 @@
         "brepHeight": 79.8,
         "totalArea": 26313.201,
         "floors": 19,
-        "function": "H",
+        "function": "R",
         "EC": [
           1315.6600500000002,
           2105.0560800000003
@@ -5441,7 +5441,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.216,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0108,
           2073.61728
@@ -5492,7 +5492,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.216,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0108,
           2073.61728
@@ -5747,7 +5747,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.216,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0108,
           2073.61728
@@ -5798,7 +5798,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.216,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0108,
           2073.61728
@@ -6053,7 +6053,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.0,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0,
           2073.6
@@ -6104,7 +6104,7 @@
         "brepHeight": 75.6,
         "totalArea": 25919.748,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1295.9874,
           2073.57984
@@ -6359,7 +6359,7 @@
         "brepHeight": 75.6,
         "totalArea": 25919.832,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1295.9916,
           2073.5865599999997
@@ -6410,7 +6410,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.0,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0,
           2073.6
@@ -6665,7 +6665,7 @@
         "brepHeight": 84.0,
         "totalArea": 25926.577,
         "floors": 20,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.32885,
           2074.1261600000003
@@ -6724,7 +6724,7 @@
         "brepHeight": 84.0,
         "totalArea": 28799.813,
         "floors": 20,
-        "function": "H",
+        "function": "R",
         "EC": [
           1439.99065,
           2303.98504
@@ -6999,7 +6999,7 @@
         "brepHeight": 75.6,
         "totalArea": 25804.964,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1290.2482,
           2064.39712
@@ -7054,7 +7054,7 @@
         "brepHeight": 75.6,
         "totalArea": 25920.216,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1296.0108,
           2073.61728
@@ -7309,7 +7309,7 @@
         "brepHeight": 75.6,
         "totalArea": 25857.623,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1292.8811500000002,
           2068.60984
@@ -7360,7 +7360,7 @@
         "brepHeight": 75.6,
         "totalArea": 25554.126,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1277.7063,
           2044.33008
@@ -7615,7 +7615,7 @@
         "brepHeight": 75.6,
         "totalArea": 25382.301,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1269.11505,
           2030.58408
@@ -7678,7 +7678,7 @@
         "brepHeight": 75.6,
         "totalArea": 25919.832,
         "floors": 18,
-        "function": "H",
+        "function": "R",
         "EC": [
           1295.9916,
           2073.5865599999997

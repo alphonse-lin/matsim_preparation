@@ -2,6 +2,8 @@ package matsim.basic.peopleCalc;
 
 public class SinglePeople {
     public int id;
+    public int buildingID;
+    public int personID;
     public AGE age;
     public EDUCATION edu;
 
@@ -9,8 +11,10 @@ public class SinglePeople {
     public TRANSPORTATION trans02;
     public TRANSPORTATION trans03;
 
-    public SinglePeople(int Id, AGE Age, EDUCATION Edu, TRANSPORTATION[] TransModes){
+    public SinglePeople(int Id,int BuildingID, int PersonID,AGE Age, EDUCATION Edu, TRANSPORTATION[] TransModes){
         id=Id;
+        buildingID=BuildingID;
+        personID=PersonID;
         age=Age;
         edu=Edu;
         trans01=TransModes[0];

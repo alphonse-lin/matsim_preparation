@@ -1,8 +1,9 @@
 package matsim.basic.peopleCalc;
 
 public enum EDUCATION {
-    PrimarySch,
-    JHighSch,
-    SHighSch,
-    University
+    KINDERGARTEN,
+    PRIMARYSCH,
+    JHIGHSCH,
+    SHIGHSCH,
+    UNIVERSITY
 }

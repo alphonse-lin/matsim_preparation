@@ -1,6 +1,6 @@
 package matsim.db;
 
-import matsim.IO.dataIO;
+import matsim.IO.GeoJSONManager;
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ public class ExtractDataFromJSON {
         ReadJson(jsonFilePath);
     }
     private void ReadJson(String jsonFilePath) throws IOException {
-        var feactureCollection=dataIO.Read(jsonFilePath, attrList);
+        var feactureCollection= GeoJSONManager.Read(jsonFilePath, attrList);
 
         var length = feactureCollection.attrDataDic;
         funcList = feactureCollection.attrDataDic.get(attrList[0]);

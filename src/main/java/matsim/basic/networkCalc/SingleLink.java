@@ -9,7 +9,7 @@ public class SingleLink {
     private final Double[] Speed=new Double[]{19.44,13.88,11.11,8.33};//70,50,40,30
     private final Double ServericeRate=0.7;
     private final Integer[] Capacity=new Integer[]{4000,2900,2300,1700};
-    private final Integer[] laneNum=new Integer[]{2,2,1,1};//车道数
+    private final Integer[] LaneNum=new Integer[]{2,2,1,1};//车道数
 
     private ROADLEVEL roadlevel;
     private LineString line;
@@ -96,23 +96,23 @@ public class SingleLink {
     }
 
 
-    private void PermlanesCalc(ROADLEVEL level){
-        double capacity=0;
+    private double PermlanesCalc(ROADLEVEL level){
+        double lanesNum=0d;
         switch (level){
             case EXPRESSWAY:
-                capacity=Capacity[0]*ServericeRate;
+                lanesNum=LaneNum[0];
                 break;
             case MAINROAD:
-                capacity=Capacity[1]*ServericeRate;
+                lanesNum=LaneNum[1];
                 break;
             case SECONDARYROAD:
-                capacity=Capacity[2]*ServericeRate;
+                lanesNum=LaneNum[2];
                 break;
             case BRANCH:
-                capacity=Capacity[3]*ServericeRate;
+                lanesNum=LaneNum[3];
                 break;
         }
-        return capacity;
+        return lanesNum;
     }
 
     private void OnewayCalc(ROADLEVEL level){

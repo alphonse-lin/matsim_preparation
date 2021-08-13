@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<network name="">
+	<nodes>
+		<node id="18" x="0" y="0" />
+		<node />
+	</nodes>
+	<links capperiod="01:00:00" effectivecellsize="7.5" effectivelanewidth="3.75">
+		<link id="18" x="0" y="0" />
+	</links>
+</network>

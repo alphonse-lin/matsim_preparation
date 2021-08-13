@@ -1,7 +1,9 @@
 package matsim.IO;
 
 import org.geotools.feature.FeatureCollection;
+import org.geotools.geojson.geom.GeometryJSON;
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 
@@ -20,6 +22,12 @@ public class GeoJSONData {
         parse();
     }
 
+    GeoJSONData(FeatureCollection<SimpleFeatureType, SimpleFeature> result) {
+        _inputFeature=result;
+        _attrList=new String[0];
+        parse();
+    }
+
     private void parse(){
         var featureIterator=_inputFeature.features();
         var count=_inputFeature.size();
@@ -29,18 +37,19 @@ public class GeoJSONData {
         for (int i = 0; i < count; i++) {
             SimpleFeature feature=(SimpleFeature) featureIterator.next();
             //get attribute data
-            for (int j = 0; j < _attrList.length; j++) {
-                var tempAttr=_attrList[j];
-                var singleAttrData=feature.getAttribute(tempAttr)+"";
+            if (_attrList.length!=0){
+                for (int j = 0; j < _attrList.length; j++) {
+                    var tempAttr=_attrList[j];
+                    var singleAttrData=feature.getAttribute(tempAttr)+"";
 
-                if (attrDataDic.containsKey(tempAttr)){
-                    attrDataDic.get(tempAttr)[i]=singleAttrData;
-                }else{
-                    attrDataDic.put(tempAttr, new String[count]);
-                    attrDataDic.get(tempAttr)[0]=singleAttrData;
+                    if (attrDataDic.containsKey(tempAttr)){
+                        attrDataDic.get(tempAttr)[i]=singleAttrData;
+                    }else{
+                        attrDataDic.put(tempAttr, new String[count]);
+                        attrDataDic.get(tempAttr)[0]=singleAttrData;
+                    }
                 }
             }
-
             //get geometry
             geometries[i]=(Geometry) feature.getDefaultGeometry();
         }

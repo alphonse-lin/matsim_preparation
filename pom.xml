@@ -92,56 +92,64 @@
         </dependency>
 
         <!-- Include some MATSim extensions -->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim.contrib</groupId>-->
+<!--            <artifactId>minibus</artifactId>-->
+<!--            <version>${matsim.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim.contrib</groupId>-->
+<!--            <artifactId>otfvis</artifactId>-->
+<!--            <version>${matsim.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim.contrib</groupId>-->
+<!--            <artifactId>roadpricing</artifactId>-->
+<!--            <version>${matsim.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim.contrib</groupId>-->
+<!--            <artifactId>taxi</artifactId>-->
+<!--            <version>${matsim.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim.contrib</groupId>-->
+<!--            <artifactId>av</artifactId>-->
+<!--            <version>${matsim.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim.contrib</groupId>-->
+<!--            <artifactId>freight</artifactId>-->
+<!--            <version>${matsim.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim.contrib</groupId>-->
+<!--            <artifactId>bicycle</artifactId>-->
+<!--            <version>${matsim.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim.contrib</groupId>-->
+<!--            <artifactId>osm</artifactId>-->
+<!--            <version>${matsim.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim.contrib</groupId>-->
+<!--            <artifactId>emissions</artifactId>-->
+<!--            <version>${matsim.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim.contrib</groupId>-->
+<!--            <artifactId>discrete_mode_choice</artifactId>-->
+<!--            <version>${matsim.version}</version>-->
+<!--        </dependency>-->
+
+        <!-- add xml -->
         <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>minibus</artifactId>
-            <version>${matsim.version}</version>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>2.0.2</version>
         </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>otfvis</artifactId>
-            <version>${matsim.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>roadpricing</artifactId>
-            <version>${matsim.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>taxi</artifactId>
-            <version>${matsim.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>av</artifactId>
-            <version>${matsim.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>freight</artifactId>
-            <version>${matsim.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>bicycle</artifactId>
-            <version>${matsim.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>osm</artifactId>
-            <version>${matsim.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>emissions</artifactId>
-            <version>${matsim.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.matsim.contrib</groupId>
-            <artifactId>discrete_mode_choice</artifactId>
-            <version>${matsim.version}</version>
-        </dependency>
+
     </dependencies>
 
     <repositories>

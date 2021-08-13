@@ -8,11 +8,21 @@ import matsim.basic.peopleCalc.CompositionPopulation;
 import matsim.basic.peopleCalc.SinglePeople;
 import matsim.basic.population;
 import matsim.db.CalculatePopulation;
+import org.geotools.feature.FeatureCollection;
+import org.geotools.feature.FeatureIterator;
+import org.geotools.geojson.feature.FeatureJSON;
+import org.geotools.geometry.jts.JTSFactoryFinder;
+import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.opengis.feature.Feature;
 import org.opengis.feature.simple.SimpleFeature;
 import org.opengis.feature.simple.SimpleFeatureType;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -109,7 +119,17 @@ public class program {
         });
          */
 
+        //生成csv
+        /*
         var exportCSV="src/main/resources/population.csv";
         var result=CSVManager.Read(exportCSV);
+
+         */
+
+//        InputStream input = new FileInputStream("src/main/resources/road.geojson");
+//        GeoJSONManager geoRead=new GeoJSONManager();
+//        var data=geoRead.read(input);
+
+
     }
 }

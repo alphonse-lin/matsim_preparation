@@ -5,7 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
+import org.jdom2.DocType;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -13,11 +16,11 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
 public class XMLManager {
-    public static void main(String[] args) throws IOException {
-        Long start = System.currentTimeMillis();
-        createXml("src/main/resources/rssNew.xml");
-        System.out.println("运行时间："+ (System.currentTimeMillis() - start));
-    }
+//    public static void main(String[] args) throws IOException {
+//        Long start = System.currentTimeMillis();
+//        createXml("src/main/resources/rssNew.xml");
+//        System.out.println("运行时间："+ (System.currentTimeMillis() - start));
+//    }
     public static void createXml(String pathFile) throws IOException {
         String pathName="";
 
@@ -76,7 +79,30 @@ public class XMLManager {
         }
         return ele;
     }
-    public static Element CreateElement(Element element, String[] nameArray, String[] valueArray) throws Exception {
+
+    public static Element CreateElement(String pareEleName, String sonEleName, List<HashMap<String,String>> StringDicList){
+        Element ele=new Element(pareEleName);
+        for (int i = 0; i < StringDicList.size(); i++) {
+            var tempHashMap=StringDicList.get(i);
+            var tempElement=CreateElement(sonEleName,tempHashMap);
+            ele.addContent(tempElement);
+        }
+        return ele;
+    }
+
+    public static Element CreateElement(String pareEleName, String[] nameArray, String[] valueArray, String sonEleName, List<HashMap<String,String>> StringDicList) throws Exception {
+        Element ele=new Element(pareEleName);
+        SetAttribute(ele,nameArray, valueArray);
+
+        for (int i = 0; i < StringDicList.size(); i++) {
+            var tempHashMap=StringDicList.get(i);
+            var tempElement=CreateElement(sonEleName,tempHashMap);
+            ele.addContent(tempElement);
+        }
+        return ele;
+    }
+
+    public static void SetAttribute(Element element, String[] nameArray, String[] valueArray) throws Exception {
         if (nameArray.length!=valueArray.length){
             throw new Exception("nameArray is not equal to valueArray");
         }else {
@@ -85,11 +111,10 @@ public class XMLManager {
                 element.setAttribute(nameArray[i],valueArray[i]);
             }
         }
-        return element;
     }
 
     public static void ExportXML(String pathFile, Element rss) throws IOException {
-        Document document = new Document(rss);
+        Document document = new Document(rss,new DocType("network","http://www.matsim.org/files/dtd/network_v1.dtd"));
         Format format = Format.getCompactFormat();
         // 设置换行Tab或空格
         format.setIndent("	");

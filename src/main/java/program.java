@@ -1,37 +1,10 @@
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import matsim.IO.CSVManager;
-import matsim.IO.GeoJSONManager;
-import matsim.basic.basicCalc.WeightRandom;
-import matsim.basic.peopleCalc.AGE;
-import matsim.basic.peopleCalc.CompositionPopulation;
-import matsim.basic.peopleCalc.SinglePeople;
-import matsim.basic.population;
+import matsim.basic.networkCalc.CompositeNetwork;
+import matsim.basic.peopleCalc.CompositePopulation;
 import matsim.db.CalculatePopulation;
-import org.geotools.feature.FeatureCollection;
-import org.geotools.feature.FeatureIterator;
-import org.geotools.geojson.feature.FeatureJSON;
-import org.geotools.geometry.jts.JTSFactoryFinder;
-import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
-import org.opengis.feature.Feature;
-import org.opengis.feature.simple.SimpleFeature;
-import org.opengis.feature.simple.SimpleFeatureType;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
 
 public class program {
-    public static void main(String[] args) throws IOException, CsvRequiredFieldEmptyException, CsvDataTypeMismatchException {
+    public static void main(String[] args) throws Exception {
 
         //数据库计算
         /*
@@ -92,32 +65,30 @@ public class program {
         */
 
         //人口生成测试
-        /*
-        var filePath="src/main/resources/building.geojson";
-
-        String url="jdbc:postgresql://39.107.177.223:5432/postgres";
-        String user="postgres";
-        String password="admin";
-        String sql = "select " +
-                "bp.bp_id, bp.bp_name, bp.bp_layer_min,bp.bp_layer_max, bp.bp_people, bp.bp_far_min, bp.bp_far_max," +
-                "bp.bp_density_max,bp.bp_green_min,bp.bp_height_max,bf.name, bf.relative_name " +
-                "from " +
-                "building_population bp, building_functions bf " +
-                "where" +
-                " bp.bp_func_id = bf.id;";
-
-        CalculatePopulation result_pop=new CalculatePopulation(url, user, password, sql, filePath);
-        var result_popStructure=new CompositionPopulation(result_pop);
-
-        var exportData=CompositionPopulation.ExportAsCSVStringArray(result_popStructure.popResult);
-
-        var exportCSV="src/main/resources/population.csv";
-        CSVManager.Write(exportCSV,exportData,
-        new String[]{"id", "buildingID","personID",
-                "age","education",
-                "trans01","trans02","trans03"
-        });
-         */
+//        var filePath="src/main/resources/building.geojson";
+//
+//        String url="jdbc:postgresql://39.107.177.223:5432/postgres";
+//        String user="postgres";
+//        String password="admin";
+//        String sql = "select " +
+//                "bp.bp_id, bp.bp_name, bp.bp_layer_min,bp.bp_layer_max, bp.bp_people, bp.bp_far_min, bp.bp_far_max," +
+//                "bp.bp_density_max,bp.bp_green_min,bp.bp_height_max,bf.name, bf.relative_name " +
+//                "from " +
+//                "building_population bp, building_functions bf " +
+//                "where" +
+//                " bp.bp_func_id = bf.id;";
+//
+//        CalculatePopulation result_pop=new CalculatePopulation(url, user, password, sql, filePath);
+//        var result_popStructure=new CompositePopulation(result_pop);
+//
+//        var exportData=CompositePopulation.ExportAsCSVStringArray(result_popStructure.popResult);
+//
+//        var exportCSV="src/main/resources/population.csv";
+//        CSVManager.Write(exportCSV,exportData,
+//        new String[]{"id", "buildingID","personID",
+//                "age","education",
+//                "trans01","trans02","trans03"
+//        });
 
         //生成csv
         /*
@@ -130,6 +101,15 @@ public class program {
 //        GeoJSONManager geoRead=new GeoJSONManager();
 //        var data=geoRead.read(input);
 
+        //生成network.xml
+        Long start = System.currentTimeMillis();
+
+        String geojsonPath="src/main/resources/road.geojson";
+        String exportXML="src/main/resources/network.xml";
+        CompositeNetwork compositeNetwork=new CompositeNetwork(geojsonPath);
+        compositeNetwork.CreateXMLFormat(exportXML);
+
+        System.out.println("运行时间："+ (System.currentTimeMillis() - start));
 
     }
 }

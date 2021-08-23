@@ -13,7 +13,7 @@ public class GeoJSONData {
     private FeatureCollection<SimpleFeatureType, SimpleFeature> _inputFeature;
     private String[] _attrList;
 
-    public Map<String, String[]> attrDataDic;
+    public LinkedHashMap<String, String[]> attrDataDic;
     public Geometry[] geometries;
 
     GeoJSONData(FeatureCollection<SimpleFeatureType, SimpleFeature> result, String[] attrList) {
@@ -32,7 +32,7 @@ public class GeoJSONData {
         var featureIterator=_inputFeature.features();
         var count=_inputFeature.size();
 
-        attrDataDic=new HashMap<>();
+        attrDataDic=new LinkedHashMap<>();
         geometries=new Geometry[count];
         for (int i = 0; i < count; i++) {
             SimpleFeature feature=(SimpleFeature) featureIterator.next();

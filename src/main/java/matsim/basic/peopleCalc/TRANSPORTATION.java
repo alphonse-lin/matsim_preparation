@@ -4,5 +4,6 @@ public enum TRANSPORTATION {
     WALK,
     CAR,
     BUS,
-    TRAIN
+    TRAIN,
+    TAXI
 }

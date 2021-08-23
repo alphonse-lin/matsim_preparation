@@ -4,9 +4,10 @@ import matsim.basic.basicCalc.WeightRandom;
 import matsim.db.CalculatePopulation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
-public class CompositionPopulation {
+public class CompositePopulation {
     private final AGE[] _ageGroup=new AGE[]{
         AGE.age0_4,AGE.age5_14,AGE.age15_24,AGE.age25_34,AGE.age35_64,AGE.age65_79,AGE.age80_85};
     private final Double[] _agePercent=new Double[]{0.043,0.085,0.2413,0.2540,0.3437,0.0298,0.3200};
@@ -16,7 +17,7 @@ public class CompositionPopulation {
 
     public SinglePeople[][] popResult;
     
-    public CompositionPopulation(CalculatePopulation result){
+    public CompositePopulation(CalculatePopulation result){
         _popInEachBuilding=CalcPopInBuilding(result.populationCount);
         _popAge=PercentageRandom(_popInEachBuilding);
 
@@ -65,7 +66,7 @@ public class CompositionPopulation {
         String result=
                 String.valueOf(singleP.id)+","+String.valueOf(singleP.buildingID)+","+String.valueOf(singleP.personID)+","+
                 singleP.age.toString()+","+singleP.edu.toString()+","+
-                singleP.trans01.toString()+","+singleP.trans02.toString()+","+singleP.trans03.toString();
+                singleP.trans01.toString().toLowerCase()+","+singleP.trans02.toString().toLowerCase()+","+singleP.trans03.toString().toLowerCase();
         return result;
     }
 

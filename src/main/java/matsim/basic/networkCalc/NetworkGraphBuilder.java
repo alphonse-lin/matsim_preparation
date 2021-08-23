@@ -5,33 +5,42 @@ import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.MultiLineString;
 import org.locationtech.jts.geom.Point;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 public class NetworkGraphBuilder {
-    private LineString[] _lineStrings;
 
+    private LineString[] _lineStrings;
     /// <summary>
     /// Storing all the points from linestrings.
     /// </summary>
-    public HashMap<Point, Integer> _pointsToVertices;
+    private HashMap<Point, Integer> _pointsToVertices;
 
-    /// <summary>
-    /// Constructor for CityGraphBuilder with input <see cref="LineString"/> array.
-    /// </summary>
-    /// <param name="curves">Input curves must have been cleared and dissolved.</param>
+    private ArrayList<SingleLink> _linkList;
+    private ArrayList<SingleNode> _nodeList;
+
+    public List<HashMap<String,String>> NodeXmlStringDic;
+    public List<HashMap<String,String>> LinkXmlStringDic;
+
     public NetworkGraphBuilder(MultiLineString curves)
     {
         _lineStrings = Convert2LineString(curves);
-        _pointsToVertices = new HashMap<Point, Integer>();
+        Initiate();
     }
 
     public NetworkGraphBuilder(LineString[] curves)
     {
         _lineStrings = curves;
-        _pointsToVertices = new HashMap<Point, Integer>();
+        _pointsToVertices=new HashMap<>();
+        Initiate();
+    }
+
+
+    private void Initiate(){
+        _linkList=Build();
+        _nodeList=ConvertPt2Node();
+
+        LinkXmlStringDic=ConvertIntoDic_link(_linkList);
+        NodeXmlStringDic=ConvertIntoDic_node(_nodeList);
     }
 
     private LineString[] Convert2LineString(MultiLineString mLine){
@@ -43,10 +52,12 @@ public class NetworkGraphBuilder {
         }
         return result;
     }
-    private void Build(){
+
+    private ArrayList<SingleLink> Build(){
+        ArrayList<SingleLink>linkResult=new ArrayList<>(_lineStrings.length);
         LineString[] lsSpan=new LineString[_lineStrings.length];
         for (int i = 0; i < lsSpan.length; i++) {
-            Point[] endsPts={lsSpan[i].getStartPoint(),lsSpan[i].getEndPoint()};
+            Point[] endsPts={_lineStrings[i].getStartPoint(),_lineStrings[i].getEndPoint()};
             for (int j = 0; j < endsPts.length; j++) {
                 var tempPt=endsPts[j];
                 if (!_pointsToVertices.containsKey(tempPt)){
@@ -57,8 +68,10 @@ public class NetworkGraphBuilder {
             var s=_pointsToVertices.get(endsPts[0]);
             var e=_pointsToVertices.get(endsPts[1]);
 
-            SingleLink singleLink=new SingleLink(i, s,e,ROADLEVEL.SECONDARYROAD, lsSpan[i]);
+            SingleLink singleLink=new SingleLink(i, s,e,ROADLEVEL.SECONDARYROAD, _lineStrings[i]);
+            linkResult.add(singleLink);
         }
+        return linkResult;
     }
 
     private ArrayList<SingleNode> ConvertPt2Node(){
@@ -70,6 +83,24 @@ public class NetworkGraphBuilder {
             result.add(singleNode);
         }
         return result;
+    }
+
+    private List<HashMap<String,String>> ConvertIntoDic_node(ArrayList<SingleNode> nodeArray){
+        List<HashMap<String,String>> NodeXmlStringDicArray=new ArrayList<HashMap<String,String>>(nodeArray.size());
+        for (int i = 0; i < nodeArray.size(); i++) {
+            var temp_node=nodeArray.get(i);
+            NodeXmlStringDicArray.add(temp_node.xmlStringDic);
+        }
+        return NodeXmlStringDicArray;
+    }
+
+    private List<HashMap<String,String>> ConvertIntoDic_link(ArrayList<SingleLink> linkArray){
+        List<HashMap<String,String>> NodeXmlStringDicArray=new ArrayList<HashMap<String,String>>(linkArray.size());
+        for (int i = 0; i < linkArray.size(); i++) {
+            var temp_node=linkArray.get(i);
+            NodeXmlStringDicArray.add(temp_node.xmlStringDic);
+        }
+        return NodeXmlStringDicArray;
     }
 
 }

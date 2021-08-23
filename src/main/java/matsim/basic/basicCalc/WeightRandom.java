@@ -22,6 +22,7 @@ public class WeightRandom<E> {
         //printRvs();
     }
 
+
     private void rangeWeightElements() {
         if (weighedElements.size()==0){
             return;

@@ -1,4 +1,5 @@
 import matsim.IO.CSVManager;
+import matsim.basic.facilityCalc.CompositeFacility;
 import matsim.basic.networkCalc.CompositeNetwork;
 import matsim.basic.peopleCalc.CompositePopulation;
 import matsim.db.CalculatePopulation;
@@ -65,49 +66,70 @@ public class program {
         */
 
         //人口生成测试
-//        var filePath="src/main/resources/building.geojson";
-//
-//        String url="jdbc:postgresql://39.107.177.223:5432/postgres";
-//        String user="postgres";
-//        String password="admin";
-//        String sql = "select " +
-//                "bp.bp_id, bp.bp_name, bp.bp_layer_min,bp.bp_layer_max, bp.bp_people, bp.bp_far_min, bp.bp_far_max," +
-//                "bp.bp_density_max,bp.bp_green_min,bp.bp_height_max,bf.name, bf.relative_name " +
-//                "from " +
-//                "building_population bp, building_functions bf " +
-//                "where" +
-//                " bp.bp_func_id = bf.id;";
-//
-//        CalculatePopulation result_pop=new CalculatePopulation(url, user, password, sql, filePath);
-//        var result_popStructure=new CompositePopulation(result_pop);
-//
-//        var exportData=CompositePopulation.ExportAsCSVStringArray(result_popStructure.popResult);
-//
-//        var exportCSV="src/main/resources/population.csv";
-//        CSVManager.Write(exportCSV,exportData,
-//        new String[]{"id", "buildingID","personID",
-//                "age","education",
-//                "trans01","trans02","trans03"
-//        });
+        /*
+        var filePath="src/main/resources/building.geojson";
 
-        //生成csv
+        String url="jdbc:postgresql://39.107.177.223:5432/postgres";
+        String user="postgres";
+        String password="admin";
+        String sql = "select " +
+                "bp.bp_id, bp.bp_name, bp.bp_layer_min,bp.bp_layer_max, bp.bp_people, bp.bp_far_min, bp.bp_far_max," +
+                "bp.bp_density_max,bp.bp_green_min,bp.bp_height_max,bf.name, bf.relative_name " +
+                "from " +
+                "building_population bp, building_functions bf " +
+                "where" +
+                " bp.bp_func_id = bf.id;";
+
+        CalculatePopulation result_pop=new CalculatePopulation(url, user, password, sql, filePath);
+        var result_popStructure=new CompositePopulation(result_pop);
+
+        var exportData=CompositePopulation.ExportAsCSVStringArray(result_popStructure.popResult);
+
+        var exportCSV="src/main/resources/population.csv";
+        CSVManager.Write(exportCSV,exportData,
+        new String[]{"id", "buildingID","personID",
+                "age","education",
+                "trans01","trans02","trans03"
+        });
+         */
+
+        //读取csv
         /*
         var exportCSV="src/main/resources/population.csv";
         var result=CSVManager.Read(exportCSV);
-
          */
 
-//        InputStream input = new FileInputStream("src/main/resources/road.geojson");
-//        GeoJSONManager geoRead=new GeoJSONManager();
-//        var data=geoRead.read(input);
+        //读取geojson
+        /*
+        InputStream input = new FileInputStream("src/main/resources/road.geojson");
+        GeoJSONManager geoRead=new GeoJSONManager();
+        var data=geoRead.read(input);
+         */
 
         //生成network.xml
+        /*
         Long start = System.currentTimeMillis();
 
         String geojsonPath="src/main/resources/road.geojson";
         String exportXML="src/main/resources/network.xml";
         CompositeNetwork compositeNetwork=new CompositeNetwork(geojsonPath);
         compositeNetwork.CreateXMLFormat(exportXML);
+
+        System.out.println("运行时间："+ (System.currentTimeMillis() - start));
+*/
+
+        //生成facilities.csv
+        Long start = System.currentTimeMillis();
+
+        String geojsonPath="src/main/resources/building.geojson";
+        CompositeFacility compositeFacility=new CompositeFacility(geojsonPath);
+        var exportData=CompositeFacility.ExportAsCSVStringArray(compositeFacility.Facilities);
+
+        var exportCSV="src/main/resources/population.csv";
+        CSVManager.Write(exportCSV,exportData,
+                new String[]{"siteType", "buildingID",
+                        "coordX","coordY","start","end"
+                });
 
         System.out.println("运行时间："+ (System.currentTimeMillis() - start));
 

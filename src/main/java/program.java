@@ -6,7 +6,7 @@ import matsim.db.CalculatePopulation;
 
 public class program {
     public static void main(String[] args) throws Exception {
-
+        Long start = System.currentTimeMillis();
         //数据库计算
         /*
         var filePath="src/main/resources/building.geojson";
@@ -91,6 +91,7 @@ public class program {
                 "age","education",
                 "trans01","trans02","trans03"
         });
+
          */
 
         //读取csv
@@ -119,13 +120,12 @@ public class program {
 */
 
         //生成facilities.csv
-        Long start = System.currentTimeMillis();
 
         String geojsonPath="src/main/resources/building.geojson";
         CompositeFacility compositeFacility=new CompositeFacility(geojsonPath);
         var exportData=CompositeFacility.ExportAsCSVStringArray(compositeFacility.Facilities);
 
-        var exportCSV="src/main/resources/population.csv";
+        var exportCSV="src/main/resources/facilities.csv";
         CSVManager.Write(exportCSV,exportData,
                 new String[]{"siteType", "buildingID",
                         "coordX","coordY","start","end"

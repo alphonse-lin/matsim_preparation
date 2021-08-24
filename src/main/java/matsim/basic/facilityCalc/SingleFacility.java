@@ -72,7 +72,7 @@ public class SingleFacility {
                 this.siteType=FACILITY.Work;
                 break;
             case "M0":
-                this.start="8";
+                this.start="0";
                 this.end="8";
                 this.siteType=FACILITY.Work;
                 break;
@@ -103,10 +103,15 @@ public class SingleFacility {
                 break;
             case "School0":
                 this.start="8";
-                this.end="18";
+                this.end="15";
                 this.siteType=FACILITY.Study;
                 break;
             case "School1":
+                this.start="8";
+                this.end="18";
+                this.siteType=FACILITY.Study;
+                break;
+            case "School2":
                 this.start="8";
                 this.end="21";
                 this.siteType=FACILITY.Study;

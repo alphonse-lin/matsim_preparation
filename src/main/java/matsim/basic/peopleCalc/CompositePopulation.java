@@ -70,8 +70,6 @@ public class CompositePopulation {
         return result;
     }
 
-
-
     /**
      * @description 数据处理，生成人口
       * @Param: null

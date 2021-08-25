@@ -10,7 +10,7 @@ import java.util.Random;
 public class CompositePopulation {
     private final AGE[] _ageGroup=new AGE[]{
         AGE.age0_4,AGE.age5_14,AGE.age15_24,AGE.age25_34,AGE.age35_64,AGE.age65_79,AGE.age80_85};
-    private final Double[] _agePercent=new Double[]{0.043,0.085,0.2413,0.2540,0.3437,0.0298,0.3200};
+    private final Double[] _agePercent=new Double[]{0.043,0.085,0.2413,0.2540,0.3437,0.0298,0.0032};
 
     private int[] _popInEachBuilding;
     private AGE[][] _popAge;

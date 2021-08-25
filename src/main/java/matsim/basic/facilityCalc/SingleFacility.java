@@ -28,7 +28,7 @@ public class SingleFacility {
                 break;
             case "C1":
                 this.start="10";
-                this.end="24";
+                this.end="23";
                 this.siteType=FACILITY.Leisure;
                 break;
             case "C2":
@@ -48,12 +48,12 @@ public class SingleFacility {
                 break;
             case "H2":
                 this.start="18";
-                this.end="24";
+                this.end="23";
                 this.siteType=FACILITY.Work;
                 break;
             case "R":
                 this.start="0";
-                this.end="24";
+                this.end="23";
                 this.siteType=FACILITY.Home;
                 break;
             case "O0":
@@ -68,7 +68,7 @@ public class SingleFacility {
                 break;
             case "O2":
                 this.start="10";
-                this.end="24";
+                this.end="23";
                 this.siteType=FACILITY.Work;
                 break;
             case "M0":
@@ -83,7 +83,7 @@ public class SingleFacility {
                 break;
             case "M2":
                 this.start="18";
-                this.end="24";
+                this.end="23";
                 this.siteType=FACILITY.Work;
                 break;
             case "W0":
@@ -98,23 +98,23 @@ public class SingleFacility {
                 break;
             case "W2":
                 this.start="18";
-                this.end="24";
+                this.end="23";
                 this.siteType=FACILITY.Work;
                 break;
             case "School0":
                 this.start="8";
-                this.end="15";
+                this.end="18";
                 this.siteType=FACILITY.Study;
                 break;
             case "School1":
                 this.start="8";
-                this.end="18";
+                this.end="21";
                 this.siteType=FACILITY.Study;
                 break;
             case "School2":
                 this.start="8";
                 this.end="21";
-                this.siteType=FACILITY.Study;
+                this.siteType=FACILITY.Work;
                 break;
         }
     }

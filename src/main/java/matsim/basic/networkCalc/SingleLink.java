@@ -4,6 +4,7 @@ import org.locationtech.jts.geom.LineString;
 
 import javax.sound.sampled.Line;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class SingleLink {
     private final Double[] Speed=new Double[]{19.44,13.88,11.11,8.33,27.77,16.66};//70,50,40,30,100,60
@@ -60,8 +61,8 @@ public class SingleLink {
         this.modes=ModesCalc(this.roadlevel);
     }
 
-    private HashMap<String,String> ConstructDic(){
-        HashMap<String,String> result=new HashMap<>();
+    private LinkedHashMap<String,String> ConstructDic(){
+        LinkedHashMap<String,String> result=new LinkedHashMap<>();
         result.put("id",String.valueOf(this.Id));
         result.put("from",String.valueOf(this.from));
         result.put("to",String.valueOf(this.to));

@@ -3,6 +3,7 @@ package matsim.basic.networkCalc;
 import org.locationtech.jts.geom.Point;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class SingleNode {
     private int Id;
@@ -19,8 +20,8 @@ public class SingleNode {
         this.xmlStringDic=ConstructDic();
     }
 
-    private HashMap<String,String> ConstructDic(){
-        HashMap<String,String> result=new HashMap<>();
+    private LinkedHashMap<String,String> ConstructDic(){
+        LinkedHashMap<String,String> result=new LinkedHashMap<>();
         result.put("id",String.valueOf(Id));
         result.put("x",String.valueOf(coordX));
         result.put("y",String.valueOf(coordY));

@@ -1,4 +1,5 @@
 import matsim.IO.CSVManager;
+import matsim.basic.Preparation;
 import matsim.basic.facilityCalc.CompositeFacility;
 import matsim.basic.networkCalc.CompositeNetwork;
 import matsim.basic.peopleCalc.CompositePopulation;
@@ -65,7 +66,7 @@ public class program {
         }
         */
 
-        //人口生成测试
+        //生成population.csv
         /*
         var filePath="src/main/resources/building.geojson";
 
@@ -109,18 +110,15 @@ public class program {
 
         //生成network.xml
         /*
-        Long start = System.currentTimeMillis();
-
         String geojsonPath="src/main/resources/road.geojson";
         String exportXML="src/main/resources/network.xml";
         CompositeNetwork compositeNetwork=new CompositeNetwork(geojsonPath);
         compositeNetwork.CreateXMLFormat(exportXML);
 
-        System.out.println("运行时间："+ (System.currentTimeMillis() - start));
-*/
+         */
 
         //生成facilities.csv
-
+        /*
         String geojsonPath="src/main/resources/building.geojson";
         CompositeFacility compositeFacility=new CompositeFacility(geojsonPath);
         var exportData=CompositeFacility.ExportAsCSVStringArray(compositeFacility.Facilities);
@@ -130,6 +128,16 @@ public class program {
                 new String[]{"siteType", "buildingID",
                         "coordX","coordY","start","end"
                 });
+         */
+
+        //生成所有
+        String roadPath="src/main/resources/road.geojson";
+        String buildingPath="src/main/resources/building.geojson";
+        String exportXML="src/main/resources/network.xml";
+        String populationCSV="src/main/resources/population.csv";
+        String facilityCSV="src/main/resources/facilities.csv";
+        Preparation preparation=new Preparation(roadPath,buildingPath);
+        preparation.Calculate(exportXML,facilityCSV,populationCSV);
 
         System.out.println("运行时间："+ (System.currentTimeMillis() - start));
 

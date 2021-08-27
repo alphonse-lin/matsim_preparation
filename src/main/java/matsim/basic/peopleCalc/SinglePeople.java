@@ -11,7 +11,9 @@ public class SinglePeople {
     public TRANSPORTATION trans02;
     public TRANSPORTATION trans03;
 
-    public SinglePeople(int Id,int BuildingID, int PersonID,AGE Age, EDUCATION Edu, TRANSPORTATION[] TransModes){
+    public LIFETYPE lifetype;
+
+    public SinglePeople(int Id,int BuildingID, int PersonID,AGE Age, EDUCATION Edu, TRANSPORTATION[] TransModes, LIFETYPE Lifetype){
         id=Id;
         buildingID=BuildingID;
         personID=PersonID;
@@ -20,5 +22,6 @@ public class SinglePeople {
         trans01=TransModes[0];
         trans02=TransModes[1];
         trans03=TransModes[2];
+        lifetype=Lifetype;
     }
 }

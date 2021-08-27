@@ -42,7 +42,8 @@ public class CreateDemand {
 
     private void Create4WorkOnly(double workOnly){
         for (int i = 0; i < workOnly; i++) {
-            Coord homec=new Coord()
+            Coord homec=new Coord();
+
         }
     }
 
@@ -54,6 +55,5 @@ public class CreateDemand {
         return fc;
     }
 
-    private
 
 }

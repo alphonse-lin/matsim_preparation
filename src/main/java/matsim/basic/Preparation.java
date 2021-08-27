@@ -57,7 +57,7 @@ public class Preparation {
         CSVManager.Write(exportCSV,exportData,
                 new String[]{"id", "buildingID","personID",
                         "age","education",
-                        "trans01","trans02","trans03"
+                        "trans01","trans02","trans03","lifeType"
                 });
     }
 }

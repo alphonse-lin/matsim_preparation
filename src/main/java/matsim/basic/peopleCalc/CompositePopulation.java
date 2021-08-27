@@ -57,7 +57,7 @@ public class CompositePopulation {
         String[] result=new String[]{
                 String.valueOf(singleP.id),String.valueOf(singleP.buildingID),String.valueOf(singleP.personID),
                 singleP.age.toString(),singleP.edu.toString(),
-                singleP.trans01.toString(),singleP.trans02.toString(),singleP.trans03.toString()
+                singleP.trans01.toString().toLowerCase(),singleP.trans02.toString().toLowerCase(),singleP.trans03.toString().toLowerCase(),singleP.lifetype.toString().toLowerCase()
         };
         return result;
     }
@@ -66,7 +66,9 @@ public class CompositePopulation {
         String result=
                 String.valueOf(singleP.id)+","+String.valueOf(singleP.buildingID)+","+String.valueOf(singleP.personID)+","+
                 singleP.age.toString()+","+singleP.edu.toString()+","+
-                singleP.trans01.toString().toLowerCase()+","+singleP.trans02.toString().toLowerCase()+","+singleP.trans03.toString().toLowerCase();
+                singleP.trans01.toString().toLowerCase()+","+singleP.trans02.toString().toLowerCase()+","+singleP.trans03.toString().toLowerCase()+","+
+                singleP.lifetype.toString().toLowerCase();
+                ;
         return result;
     }
 
@@ -102,6 +104,7 @@ public class CompositePopulation {
 
         return result;
     }
+    
     private SinglePeople[][] CalcAllPeople(AGE[][] popAgeInput){
         int count=popAgeInput.length;
         SinglePeople[][] result=new SinglePeople[count][];
@@ -124,7 +127,8 @@ public class CompositePopulation {
     */
     private SinglePeople CompositeSinglePop(int id, int buildingId, int personId, AGE age){
         var edu=CreateEduFromAge(age);
-        var single=new SinglePeople(id,buildingId,personId,age, edu.education, edu.transportation);
+        var lifeType=CreateLifeTypeFromAgeEdu(age,edu.education);
+        var single=new SinglePeople(id,buildingId,personId,age, edu.education, edu.transportation,lifeType);
         return single;
     }
 
@@ -309,6 +313,125 @@ public class CompositePopulation {
                 break;
             case age80_85:
                 result=new TRANSPORTATION[]{TRANSPORTATION.WALK,TRANSPORTATION.BUS,TRANSPORTATION.TRAIN};
+                break;
+        }
+        return result;
+    }
+
+    /**
+     * @description 基于概率，自动生成生活模式
+      * @Param: age, edu
+     * @return  
+    */
+    private LIFETYPE CreateLifeTypeFromAgeEdu(AGE age, EDUCATION edu){
+        LIFETYPE result=null;
+        switch (age){
+            case age0_4:
+                result=LIFETYPE.NOACTIVITY;
+                break;
+            case age5_14:
+                result=LIFETYPE.STUDYONLY;
+                break;
+            case age15_24:
+                switch (edu){
+                    case PRIMARYSCH:
+                        result=LIFETYPE.WORKONLY;
+                    case JHIGHSCH:
+                        WeightRandom<LIFETYPE> wr_0=new WeightRandom<LIFETYPE>();
+                        wr_0.initWeight(new LIFETYPE[]{
+                                        LIFETYPE.WORKONLY,LIFETYPE.STUDYONLY},
+                                new Double[]{0.2,0.8});
+                        Random r_0 = new Random();
+                        result=(LIFETYPE) wr_0.getElementByRandomValue(r_0.nextDouble()).getKey();
+                        break;
+                    case SHIGHSCH:
+                        WeightRandom<LIFETYPE> wr_1=new WeightRandom<LIFETYPE>();
+                        wr_1.initWeight(new LIFETYPE[]{
+                                        LIFETYPE.WORKONLY,LIFETYPE.STUDYONLY},
+                                new Double[]{0.3,0.7});
+                        Random r_1 = new Random();
+                        result=(LIFETYPE) wr_1.getElementByRandomValue(r_1.nextDouble()).getKey();
+                        break;
+                    case UNIVERSITY:
+                        result=LIFETYPE.WORKONLY;
+                }
+            case age25_34:
+                switch (edu){
+                    case PRIMARYSCH:
+                        WeightRandom<LIFETYPE> wr_0=new WeightRandom<LIFETYPE>();
+                        wr_0.initWeight(new LIFETYPE[]{
+                                        LIFETYPE.WORKONLY,LIFETYPE.STUDYANDWORK},
+                                new Double[]{0.5,0.5});
+                        Random r_0 = new Random();
+                        result=(LIFETYPE) wr_0.getElementByRandomValue(r_0.nextDouble()).getKey();
+                        break;
+                    case JHIGHSCH:
+                        WeightRandom<LIFETYPE> wr_1=new WeightRandom<LIFETYPE>();
+                        wr_1.initWeight(new LIFETYPE[]{
+                                        LIFETYPE.WORKONLY,LIFETYPE.STUDYANDWORK},
+                                new Double[]{0.6,0.4});
+                        Random r_1 = new Random();
+                        result=(LIFETYPE) wr_1.getElementByRandomValue(r_1.nextDouble()).getKey();
+                        break;
+                    case SHIGHSCH:
+                        WeightRandom<LIFETYPE> wr_2=new WeightRandom<LIFETYPE>();
+                        wr_2.initWeight(new LIFETYPE[]{
+                                        LIFETYPE.WORKONLY,LIFETYPE.STUDYANDWORK},
+                                new Double[]{0.6,0.4});
+                        Random r_2 = new Random();
+                        result=(LIFETYPE) wr_2.getElementByRandomValue(r_2.nextDouble()).getKey();
+                        break;
+                    case UNIVERSITY:
+                        WeightRandom<LIFETYPE> wr_3=new WeightRandom<LIFETYPE>();
+                        wr_3.initWeight(new LIFETYPE[]{
+                                        LIFETYPE.WORKONLY,LIFETYPE.STUDYONLY, LIFETYPE.STUDYANDWORK},
+                                new Double[]{0.4,0.3,0.3});
+                        Random r_3 = new Random();
+                        result=(LIFETYPE) wr_3.getElementByRandomValue(r_3.nextDouble()).getKey();
+                        break;
+                }
+                break;
+            case age35_64:
+                switch (edu){
+                    case PRIMARYSCH:
+                        WeightRandom<LIFETYPE> wr_0=new WeightRandom<LIFETYPE>();
+                        wr_0.initWeight(new LIFETYPE[]{
+                                        LIFETYPE.WORKONLY,LIFETYPE.STUDYANDWORK},
+                                new Double[]{0.7,0.3});
+                        Random r_0 = new Random();
+                        result=(LIFETYPE) wr_0.getElementByRandomValue(r_0.nextDouble()).getKey();
+                        break;
+                    case JHIGHSCH:
+                        WeightRandom<LIFETYPE> wr_1=new WeightRandom<LIFETYPE>();
+                        wr_1.initWeight(new LIFETYPE[]{
+                                        LIFETYPE.WORKONLY,LIFETYPE.STUDYANDWORK},
+                                new Double[]{0.7,0.3});
+                        Random r_1 = new Random();
+                        result=(LIFETYPE) wr_1.getElementByRandomValue(r_1.nextDouble()).getKey();
+                        break;
+                    case SHIGHSCH:
+                        WeightRandom<LIFETYPE> wr_2=new WeightRandom<LIFETYPE>();
+                        wr_2.initWeight(new LIFETYPE[]{
+                                        LIFETYPE.WORKONLY,LIFETYPE.STUDYANDWORK},
+                                new Double[]{0.7,0.3});
+                        Random r_2 = new Random();
+                        result=(LIFETYPE) wr_2.getElementByRandomValue(r_2.nextDouble()).getKey();
+                        break;
+                    case UNIVERSITY:
+                        WeightRandom<LIFETYPE> wr_3=new WeightRandom<LIFETYPE>();
+                        wr_3.initWeight(new LIFETYPE[]{
+                                        LIFETYPE.WORKONLY, LIFETYPE.STUDYANDWORK},
+                                new Double[]{0.7,0.3});
+                        Random r_3 = new Random();
+                        result=(LIFETYPE) wr_3.getElementByRandomValue(r_3.nextDouble()).getKey();
+                        break;
+                }
+                break;
+            case age65_79:
+                result=LIFETYPE.NOACTIVITY;
+                break;
+            case age80_85:
+                result=LIFETYPE.NOACTIVITY;
                 break;
         }
         return result;

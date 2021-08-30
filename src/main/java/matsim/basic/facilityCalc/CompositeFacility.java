@@ -157,9 +157,9 @@ public class CompositeFacility {
     }
 
     private static String[] SingleFamily2String(SingleFacility facility){
-        var result=new String[]{facility.siteType.toString(),facility.buildingID,
+        var result=new String[]{facility.siteType.toString().toLowerCase(),facility.buildingID,
                                 String.valueOf(facility.coordX),String.valueOf(facility.coordY),
-                                String.valueOf(facility.start),String.valueOf(facility.siteType)};
+                                String.valueOf(facility.start),String.valueOf(facility.end)};
         return result;
     }
 }

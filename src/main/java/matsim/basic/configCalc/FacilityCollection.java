@@ -1,7 +1,6 @@
-package matsim.basic;
+package matsim.basic.configCalc;
 
 import matsim.IO.CSVManager;
-import matsim.basic.facilityCalc.SingleFacility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,19 +42,19 @@ public class FacilityCollection {
             var singleFacility=this._readData.get(i);
             String type= singleFacility[0];
             switch (type){
-                case "Home":
+                case "home":
                     this.HomeType.add(singleFacility);
                     break;
-                case "Work":
+                case "work":
                     this.WorkType.add(singleFacility);
                     break;
-                case "Leisure":
+                case "leisure":
                     this.LeisureType.add(singleFacility);
                     break;
-                case "Shopping":
+                case "shopping":
                     this.ShoppingType.add(singleFacility);
                     break;
-                case "Study":
+                case "study":
                     this.StudyType.add(singleFacility);
                     break;
             }

@@ -56,7 +56,7 @@ public class CompositePopulation {
     private static String[] TransferPeopleIntoStringArray(SinglePeople singleP){
         String[] result=new String[]{
                 String.valueOf(singleP.id),String.valueOf(singleP.buildingID),String.valueOf(singleP.personID),
-                singleP.age.toString(),singleP.edu.toString(),
+                singleP.age.toString(),singleP.edu.toString().toLowerCase(),
                 singleP.trans01.toString().toLowerCase(),singleP.trans02.toString().toLowerCase(),singleP.trans03.toString().toLowerCase(),singleP.lifetype.toString().toLowerCase()
         };
         return result;
@@ -109,13 +109,16 @@ public class CompositePopulation {
         int count=popAgeInput.length;
         SinglePeople[][] result=new SinglePeople[count][];
         int k=0;
+        int buildingID=0;
 
         for (int i = 0; i < popAgeInput.length; i++) {
+            int tempCount=popAgeInput[i].length;
             result[i]=new SinglePeople[popAgeInput[i].length];
             for (int j = 0; j < popAgeInput[i].length; j++) {
-                result[i][j]=CompositeSinglePop(k,i,j,popAgeInput[i][j]);
+                result[i][j]=CompositeSinglePop(k,buildingID,j,popAgeInput[i][j]);
                 k++;
             }
+            if(tempCount!=0){buildingID++; }
         }
         return result;
     }

@@ -7,6 +7,7 @@ import org.matsim.api.core.v01.Scenario;
 import org.matsim.api.core.v01.population.Activity;
 import org.matsim.api.core.v01.population.Person;
 import org.matsim.api.core.v01.population.Plan;
+import org.matsim.api.core.v01.population.PopulationWriter;
 import org.matsim.core.config.ConfigUtils;
 import org.matsim.core.network.io.MatsimNetworkReader;
 import org.matsim.core.scenario.ScenarioUtils;
@@ -31,7 +32,7 @@ public class CreateDemand {
         new MatsimNetworkReader(_scenario.getNetwork()).readFile(_networkXML);
     }
 
-    private void Run(){
+    private void Run(String outputPath){
         this._fcData=ReadFacilities(this._facilityCSVPath);
         var HomePts=this._fcData.HomeType;
         var WorkPts=this._fcData.WorkType;
@@ -55,6 +56,9 @@ public class CreateDemand {
         Create4StudyOnly(StudyOnly,HomePts,StudyPts,LeisurePts,ShoppingPts);
         Create4StudyAndWork();
         Create4NoActivity();
+
+        PopulationWriter pw=new PopulationWriter(_scenario.getPopulation(),_scenario.getNetwork());
+        pw.write(outputPath);
     }
 
     private void Create4WorkOnly(List<String[]> workOnly,
@@ -130,10 +134,11 @@ public class CreateDemand {
         }
     }
 
+    //TODO 完成这部分
     private void Create4StudyAndWork(){
 
     }
-
+    //TODO 完成这部分
     private void Create4NoActivity(){
 
     }
@@ -216,10 +221,11 @@ public class CreateDemand {
         _scenario.getPopulation().addPerson(person);
     }
 
+    //TODO 完成这部分
     private void CreateStudyAndWork_AddPlans(){
 
     }
-
+    //TODO 完成这部分
     private void CreateNoActivity_AddPlans(){
 
     }

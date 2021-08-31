@@ -1,5 +1,6 @@
 import matsim.IO.CSVManager;
 import matsim.basic.Preparation;
+import matsim.basic.configCalc.CreateDemand;
 import matsim.basic.facilityCalc.CompositeFacility;
 import matsim.basic.networkCalc.CompositeNetwork;
 import matsim.basic.peopleCalc.CompositePopulation;
@@ -133,11 +134,16 @@ public class program {
         //生成所有
         String roadPath="src/main/resources/road.geojson";
         String buildingPath="src/main/resources/building.geojson";
-        String exportXML="src/main/resources/network.xml";
+
+        String networkXML="src/main/resources/network.xml";
         String populationCSV="src/main/resources/population.csv";
         String facilityCSV="src/main/resources/facilities.csv";
-        Preparation preparation=new Preparation(roadPath,buildingPath);
-        preparation.Calculate(exportXML,facilityCSV,populationCSV);
+//        Preparation preparation=new Preparation(roadPath,buildingPath);
+//        preparation.Calculate(networkXML,facilityCSV,populationCSV);
+
+        String plansXML="src/main/resources/plans.xml";
+        CreateDemand createDemand=new CreateDemand(populationCSV,facilityCSV,networkXML);
+        createDemand.Run(plansXML);
 
         System.out.println("运行时间："+ (System.currentTimeMillis() - start));
 

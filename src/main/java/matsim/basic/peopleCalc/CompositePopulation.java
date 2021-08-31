@@ -387,8 +387,8 @@ public class CompositePopulation {
                     case UNIVERSITY:
                         WeightRandom<LIFETYPE> wr_3=new WeightRandom<LIFETYPE>();
                         wr_3.initWeight(new LIFETYPE[]{
-                                        LIFETYPE.WORKONLY,LIFETYPE.STUDYONLY, LIFETYPE.STUDYANDWORK},
-                                new Double[]{0.4,0.3,0.3});
+                                        LIFETYPE.WORKONLY, LIFETYPE.STUDYANDWORK},
+                                new Double[]{0.6,0.4});
                         Random r_3 = new Random();
                         result=(LIFETYPE) wr_3.getElementByRandomValue(r_3.nextDouble()).getKey();
                         break;

@@ -1,6 +1,7 @@
 package matsim.basic.configCalc;
 
 import matsim.basic.peopleCalc.LIFETYPE;
+import org.checkerframework.checker.units.qual.C;
 import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
@@ -27,12 +28,16 @@ public class CreateDemand {
     private final double SCALEFACTOR=1;
     private final double[] TRANSRATIO=new double[]{0.48, 0.21, 0.19, 0.07};
 
-    public CreateDemand(){
-        this._scenario= ScenarioUtils.createScenario(ConfigUtils.createConfig());
+    public CreateDemand(String PopCSVPath, String FacilityCSVPath, String NetworkXML){
+        this._populationCSVPath=PopCSVPath;
+        this._facilityCSVPath=FacilityCSVPath;
+        this._networkXML=NetworkXML;
+
+        this._scenario=ScenarioUtils.createScenario(ConfigUtils.createConfig());
         new MatsimNetworkReader(_scenario.getNetwork()).readFile(_networkXML);
     }
 
-    private void Run(String outputPath){
+    public void Run(String outputPath){
         this._fcData=ReadFacilities(this._facilityCSVPath);
         var HomePts=this._fcData.HomeType;
         var WorkPts=this._fcData.WorkType;
@@ -54,13 +59,14 @@ public class CreateDemand {
 
         Create4WorkOnly(WorkOnly, HomePts, WorkPts, LeisurePts, ShoppingPts);
         Create4StudyOnly(StudyOnly,HomePts,StudyPts,LeisurePts,ShoppingPts);
-        Create4StudyAndWork();
-        Create4NoActivity();
+        Create4StudyAndWork(StudyAndWork, HomePts, WorkPts, StudyPts, LeisurePts, ShoppingPts);
+        Create4NoActivity(NoActivity,HomePts,StudyPts,LeisurePts,ShoppingPts);
 
         PopulationWriter pw=new PopulationWriter(_scenario.getPopulation(),_scenario.getNetwork());
         pw.write(outputPath);
     }
 
+    //region 创建4种场景，workOnly, studyOnly, studyAndWork, noActivity
     private void Create4WorkOnly(List<String[]> workOnly,
                                  List<String[]> homePts, List<String[]>workPts,
                                  List<String[]> leisurePts, List<String[]> shoppingPts){
@@ -134,19 +140,93 @@ public class CreateDemand {
         }
     }
 
-    //TODO 完成这部分
-    private void Create4StudyAndWork(){
+    private void Create4StudyAndWork(List<String[]> studyAndWork,
+                                     List<String[]> homePts, List<String[]>workPts, List<String[]>studyPts,
+                                     List<String[]> leisurePts, List<String[]> shoppingPts){
+        int count=studyAndWork.size();
+
+        for (int i = 0; i < count; i++) {
+            var singleWorker = studyAndWork.get(i);
+//            var age = singleWorker[3];
+//            var edu = singleWorker[4];
+            //目前先默认出行模式为CAR
+            String mode = "car";
+
+            //得到home数据
+            int buildingID = Integer.parseInt(singleWorker[1]);
+            var singleWorkHome = homePts.get(buildingID);
+            Coord homeC = new Coord(Double.parseDouble(singleWorkHome[2]), Double.parseDouble(singleWorkHome[3]));
+
+            Random rndLine = new Random();
+
+            //随机创建工作地点
+            int workLine=rndLine.nextInt(workPts.size());
+            double wopenTime=Double.parseDouble(workPts.get(workLine)[4]);
+            double wcloseTime=Double.parseDouble(workPts.get(workLine)[5]);
+            Coord workC=ExtractCoord(workLine, workPts);
+
+            //随机创建学习地点
+            int studyLine = rndLine.nextInt(studyPts.size());
+            double sopenTime = Double.parseDouble(studyPts.get(studyLine)[4]);
+            double scloseTime = Double.parseDouble(studyPts.get(studyLine)[5]);
+            Coord schoolC = ExtractCoord(studyLine, studyPts);
+
+//            //随机创建娱乐地点
+//            int leisureLine = rndLine.nextInt(leisurePts.size());
+//            Coord leisureC = ExtractCoord(leisureLine, leisurePts);
+//
+//            //随机创建购物地点
+//            int shoppingLine = rndLine.nextInt(shoppingPts.size());
+//            Coord shoppingC = ExtractCoord(shoppingLine, shoppingPts);
+
+            CreateStudyAndWork_AddPlans(i, homeC, workC, schoolC, wopenTime, wcloseTime, sopenTime, scloseTime, mode, "studyAndWork");
+        }
 
     }
-    //TODO 完成这部分
-    private void Create4NoActivity(){
 
+    private void Create4NoActivity(List<String[]> noActivity,
+                                   List<String[]> homePts, List<String[]>studyPts,
+                                   List<String[]> leisurePts, List<String[]> shoppingPts){
+        int count=noActivity.size();
+
+        for (int i = 0; i < count; i++) {
+            var singlePeople = noActivity.get(i);
+            var age = singlePeople[3];
+            var edu = singlePeople[4];
+            //目前先默认出行模式为CAR
+            String mode = "car";
+
+            //得到home数据
+            int buildingID = Integer.parseInt(singlePeople[1]);
+            var singleWorkHome = homePts.get(buildingID);
+            Coord homeC = new Coord(Double.parseDouble(singleWorkHome[2]), Double.parseDouble(singleWorkHome[3]));
+
+            Random rndLine = new Random();
+
+            //随机创建学习地点
+            int studyLine = rndLine.nextInt(studyPts.size());
+            double sopenTime = Double.parseDouble(studyPts.get(studyLine)[4]);
+            double scloseTime = Double.parseDouble(studyPts.get(studyLine)[5]);
+            Coord schoolC = ExtractCoord(studyLine, studyPts);
+
+            //随机创建娱乐地点
+            int leisureLine = rndLine.nextInt(leisurePts.size());
+            Coord leisureC = ExtractCoord(leisureLine, leisurePts);
+
+            //随机创建购物地点
+            int shoppingLine = rndLine.nextInt(shoppingPts.size());
+            Coord shoppingC = ExtractCoord(shoppingLine, shoppingPts);
+
+            CreateNoActivity_AddPlans(i, age, edu, homeC, schoolC, sopenTime, scloseTime, leisureC, shoppingC, mode, "noActivity");
+        }
     }
+    //endregion
 
+    //region 增加plans
     private void CreateWorkOnly_AddPlans(int i, String age, String edu, Coord coordHome, Coord coordWork,Double wOpenTime, Double wCloseTime,
                                          Coord coordLeisure, Coord coordShopping, String mode, String type){
 
-        InitiatePlan initiatePlan=new InitiatePlan(_scenario,i,coordHome,coordWork,wOpenTime,wCloseTime,type,LIFETYPE.WORKONLY);
+        InitiatePlan initiatePlan=new InitiatePlan(_scenario,i,coordHome,new Coord[]{coordWork},new Double[]{wOpenTime,wCloseTime},type,LIFETYPE.WORKONLY);
         var work=initiatePlan.Work;
         var home=initiatePlan.Home;
         var person=initiatePlan.Person;
@@ -187,7 +267,7 @@ public class CreateDemand {
     private void CreateStudyOnly_AddPlans(int i, String age, String edu, Coord coordHome, Coord coordStudy,Double sOpenTime, Double sCloseTime,
                                          Coord coordLeisure, Coord coordShopping, String mode, String type){
 
-        InitiatePlan initiatePlan=new InitiatePlan(_scenario,i,coordHome,coordStudy,sOpenTime,sCloseTime,type, LIFETYPE.STUDYONLY);
+        InitiatePlan initiatePlan=new InitiatePlan(_scenario,i,coordHome,new Coord[]{coordStudy},new Double[]{sOpenTime,sCloseTime},type, LIFETYPE.STUDYONLY);
         var study=initiatePlan.Study;
         var home=initiatePlan.Home;
         var person=initiatePlan.Person;
@@ -221,15 +301,74 @@ public class CreateDemand {
         _scenario.getPopulation().addPerson(person);
     }
 
-    //TODO 完成这部分
-    private void CreateStudyAndWork_AddPlans(){
+    private void CreateStudyAndWork_AddPlans(int i, Coord coordHome, Coord coordWork, Coord coordStudy,Double wOpenTime, Double wCloseTime,
+                                             Double sOpenTime, Double sCloseTime, String mode, String type){
+        InitiatePlan initiatePlan=new InitiatePlan(_scenario, i, coordHome, new Coord[]{coordWork, coordStudy}, new Double[]{wOpenTime,wCloseTime, sOpenTime,sCloseTime},type, LIFETYPE.STUDYANDWORK);
+        var work=initiatePlan.Work;
+        var study=initiatePlan.Study;
+        var home=initiatePlan.Home;
+        var person=initiatePlan.Person;
 
+        List<Plan> plans=new ArrayList<>();
+        plans.add(CreatePlans.Create_HSTDWH(_scenario, work,study, home, mode));
+        plans.add(CreatePlans.Create_HWSTDH(_scenario,work,study,home,mode));
+        plans.add(CreatePlans.Create_HSTDWHSTDWH(_scenario,work,study,home,mode));
+        /*
+        switch(age){
+            case "age25_34":
+            case "age35_64":
+                switch (edu){
+                    case "primarysch":
+                    case "jhighsch":
+                    case "shighsch":
+                    case "university":
+                        plans.add(CreatePlans.Create_HSTDWH(_scenario, work,study, home, mode));
+                        plans.add(CreatePlans.Create_HWSTDH(_scenario,work,study,home,mode));
+                        plans.add(CreatePlans.Create_HSTDWHSTDWH(_scenario,work,study,home,mode));
+                        break;
+                }
+                break;
+        }
+
+         */
+
+        //整合数据
+        for (int j = 0; j < plans.size(); j++) {person.addPlan(plans.get(j));}
+        _scenario.getPopulation().addPerson(person);
     }
-    //TODO 完成这部分
-    private void CreateNoActivity_AddPlans(){
 
+    private void CreateNoActivity_AddPlans(int i, String age, String edu, Coord coordHome, Coord coordStudy,Double sOpenTime, Double sCloseTime,
+                                           Coord coordLeisure, Coord coordShopping, String mode, String type){
+        InitiatePlan initiatePlan=new InitiatePlan(_scenario,i,coordHome,new Coord[]{coordStudy},new Double[]{sOpenTime,sCloseTime},type,LIFETYPE.NOACTIVITY);
+        var study=initiatePlan.Study;
+        var home=initiatePlan.Home;
+        var person=initiatePlan.Person;
+
+        List<Plan> plans=new ArrayList<>();
+        switch(age){
+            case "age0-4":
+                plans.add(CreatePlans.Create_H(_scenario,home));
+                plans.add(CreatePlans.Create_HLH(_scenario, home, coordLeisure, mode));
+            case "age65_79":
+                plans.add(CreatePlans.Create_HLH(_scenario,home,coordLeisure,mode));
+                plans.add(CreatePlans.Create_HSH(_scenario,home,coordShopping,mode));
+                plans.add(CreatePlans.Create_HLSH(_scenario,home, coordLeisure,coordShopping, mode));
+                plans.add(CreatePlans.Create_HSTDSHSTDLSTDH(_scenario,study,home,coordLeisure,coordShopping,mode));
+                break;
+            case "age80_85":
+                plans.add(CreatePlans.Create_HLH(_scenario,home,coordLeisure,mode));
+                plans.add(CreatePlans.Create_HSH(_scenario,home,coordShopping,mode));
+                plans.add(CreatePlans.Create_HLSH(_scenario,home, coordLeisure,coordShopping, mode));
+                break;
+        }
+
+        //整合数据
+        for (int j = 0; j < plans.size(); j++) {person.addPlan(plans.get(j));}
+        _scenario.getPopulation().addPerson(person);
     }
+    //endregion
 
+    //region 基础功能
     private Coord ExtractCoord(int index, List<String[]> selePts){
         double xCoord=Double.parseDouble(selePts.get(index)[2]);
         double yCoord=Double.parseDouble(selePts.get(index)[3]);
@@ -255,6 +394,6 @@ public class CreateDemand {
         PopulationCollection popC=new PopulationCollection(path,true);
         return popC;
     }
-
+    //endregion
 
 }

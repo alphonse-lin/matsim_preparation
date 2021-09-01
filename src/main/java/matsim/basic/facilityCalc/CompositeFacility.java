@@ -162,4 +162,6 @@ public class CompositeFacility {
                                 String.valueOf(facility.start),String.valueOf(facility.end)};
         return result;
     }
+
+    //TODO 输出facilities.xml
 }

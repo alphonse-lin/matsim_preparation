@@ -1,4 +1,4 @@
-package matsim.basic.configCalc;
+package matsim.basic.plansCalc;
 
 import matsim.IO.CSVManager;
 
@@ -38,8 +38,9 @@ public class FacilityCollection {
 
     private void ExtractValue(){
         int count=this._readData.size();
-        for (int i = 0; i <count ; i++) {
+        for (int i = 1; i <count ; i++) {
             var singleFacility=this._readData.get(i);
+            //var singleFacility=temp_singleFacility.split(",");
             String type= singleFacility[0];
             switch (type){
                 case "home":

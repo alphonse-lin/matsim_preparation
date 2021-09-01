@@ -1,4 +1,4 @@
-package matsim.basic.configCalc;
+package matsim.basic.plansCalc;
 
 import matsim.IO.CSVManager;
 
@@ -35,21 +35,21 @@ public class PopulationCollection {
 
     private void ExtractValue(){
         int count=this._readData.size();
-        for (int i = 0; i <count ; i++) {
-            var singleFacility=this._readData.get(i);
-            String type= singleFacility[8];
+        for (int i = 1; i <count ; i++) {
+            var singlePop=this._readData.get(i);
+            String type= singlePop[8];
             switch (type){
                 case "workonly":
-                    this.WorkOnlyType.add(singleFacility);
+                    this.WorkOnlyType.add(singlePop);
                     break;
                 case "studyonly":
-                    this.StudyOnlyType.add(singleFacility);
+                    this.StudyOnlyType.add(singlePop);
                     break;
                 case "studyandwork":
-                    this.StudyAndWorkType.add(singleFacility);
+                    this.StudyAndWorkType.add(singlePop);
                     break;
                 case "noactivity":
-                    this.NoActivityType.add(singleFacility);
+                    this.NoActivityType.add(singlePop);
                     break;
             }
         }

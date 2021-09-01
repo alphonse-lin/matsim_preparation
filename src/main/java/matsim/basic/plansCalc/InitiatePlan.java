@@ -1,4 +1,4 @@
-package matsim.basic.configCalc;
+package matsim.basic.plansCalc;
 
 import matsim.basic.peopleCalc.LIFETYPE;
 import org.matsim.api.core.v01.Coord;
@@ -29,7 +29,7 @@ public class InitiatePlan {
                 run_studyAndWork(scenario,index,coordHome,coordActivity[0],coordActivity[1],relatedTime,type);
                 break;
             case NOACTIVITY:
-                run_noActivity();
+                run_noActivity(scenario, index, coordHome,coordActivity[0],relatedTime,type);
                 break;
         }
     }
@@ -49,6 +49,7 @@ public class InitiatePlan {
         //创建一天中的最后一个活动：回家
         Activity home=scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",coordHome);
+        home.setEndTime(24*60*60);
 
         //开关时间调整: 标准下班时间前后1-2个小时
         if(wOpenPeriod<=8){
@@ -67,6 +68,7 @@ public class InitiatePlan {
 
         this.Work=work;
         this.Home=home;
+        this.Person=person;
     }
 
     private void run_studyonly(Scenario scenario, int index,Coord coordHome, Coord coordStudy, Double[]relatedTime,String type){
@@ -83,6 +85,7 @@ public class InitiatePlan {
         //创建一天中的最后一个活动：回家
         Activity home=scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",coordHome);
+        home.setEndTime(24*60*60);
 
         //开关时间调整: 标准上下课时间前后0.5-1个小时
         Double sOpenPeriod=sCloseTime-sCloseTime;
@@ -98,6 +101,7 @@ public class InitiatePlan {
 
         this.Study=study;
         this.Home=home;
+        this.Person=person;
     }
 
     private void run_studyAndWork(Scenario scenario, int index,Coord coordHome, Coord coordWork, Coord coordStudy, Double[]relatedTime,String type){
@@ -118,6 +122,7 @@ public class InitiatePlan {
         //创建一天中的最后一个活动：回家
         Activity home=scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",coordHome);
+        home.setEndTime(24*60*60);
 
         //开关时间调整: 标准下班时间前后1-2个小时
         Double wOpenPeriod=wCloseTime-wCloseTime;
@@ -153,9 +158,41 @@ public class InitiatePlan {
         this.Work=work;
         this.Study=study;
         this.Home=home;
+        this.Person=person;
     }
 
-    private void run_noActivity(){
+    private void run_noActivity(Scenario scenario, int index,Coord coordHome, Coord coordStudy, Double[]relatedTime,String type){
+        var personID= Id.createPersonId(type+index);
+        Person person=scenario.getPopulation().getFactory().createPerson(personID);
 
+        Double sOpenTime=relatedTime[0];
+        Double sCloseTime=relatedTime[1];
+
+        Random rnd=new Random();
+
+
+        //创建一天中的最后一个活动：回家
+        Activity home=scenario.getPopulation().getFactory()
+                .createActivityFromCoord("home",coordHome);
+        home.setEndTime(24*60*60);
+
+        //创建所有计划通用的活动
+        Activity study=scenario.getPopulation().getFactory().createActivityFromCoord("study", coordStudy);
+
+        //开关时间调整: 标准上下课时间前后0.5-1个小时
+        Double sOpenPeriod=sCloseTime-sCloseTime;
+        if(sOpenPeriod<=10){
+            double shift=rnd.nextDouble()*0.5;
+            study.setStartTime(3600*(sOpenTime+(shift)));
+            study.setEndTime(3600*(sCloseTime+(shift)));
+        }else{
+            double shift=rnd.nextDouble();
+            study.setStartTime(3600*(sOpenTime+(shift)));
+            study.setEndTime(3600*(sCloseTime+(shift)));
+        }
+
+        this.Study=study;
+        this.Home=home;
+        this.Person=person;
     }
 }

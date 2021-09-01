@@ -1,12 +1,8 @@
-package matsim.basic.configCalc;
+package matsim.basic.plansCalc;
 
 import matsim.basic.peopleCalc.LIFETYPE;
-import org.checkerframework.checker.units.qual.C;
 import org.matsim.api.core.v01.Coord;
-import org.matsim.api.core.v01.Id;
 import org.matsim.api.core.v01.Scenario;
-import org.matsim.api.core.v01.population.Activity;
-import org.matsim.api.core.v01.population.Person;
 import org.matsim.api.core.v01.population.Plan;
 import org.matsim.api.core.v01.population.PopulationWriter;
 import org.matsim.core.config.ConfigUtils;
@@ -347,7 +343,7 @@ public class CreateDemand {
         List<Plan> plans=new ArrayList<>();
         switch(age){
             case "age0-4":
-                plans.add(CreatePlans.Create_H(_scenario,home));
+                //plans.add(CreatePlans.Create_H(_scenario,home));
                 plans.add(CreatePlans.Create_HLH(_scenario, home, coordLeisure, mode));
             case "age65_79":
                 plans.add(CreatePlans.Create_HLH(_scenario,home,coordLeisure,mode));
@@ -364,7 +360,9 @@ public class CreateDemand {
 
         //整合数据
         for (int j = 0; j < plans.size(); j++) {person.addPlan(plans.get(j));}
-        _scenario.getPopulation().addPerson(person);
+        if(plans.size()!=0){
+            _scenario.getPopulation().addPerson(person);
+        }
     }
     //endregion
 

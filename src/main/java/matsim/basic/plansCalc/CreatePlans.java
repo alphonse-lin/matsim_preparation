@@ -1,4 +1,4 @@
-package matsim.basic.configCalc;
+package matsim.basic.plansCalc;
 
 import org.matsim.api.core.v01.Coord;
 import org.matsim.api.core.v01.Scenario;
@@ -17,7 +17,11 @@ public class CreatePlans {
         //设置出门时间：提早40分钟出门
         Activity home1=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home", home.getCoord());
+        home1.setStartTime(0);
         home1.setEndTime(work.getStartTime().seconds()-40*60);
+
+        //回家
+        home.setStartTime(work.getEndTime().seconds()+40*60);
 
         plan1.addActivity(home1);
         Leg hw=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -34,16 +38,20 @@ public class CreatePlans {
         //创建 plan2=H-W-S-H
         Plan plan2=_scenario.getPopulation().getFactory().createPlan();
 
+        //设置出门时间 提早40分钟出门
+        Activity home2=_scenario.getPopulation().getFactory()
+                .createActivityFromCoord("home",home.getCoord());
+        home2.setStartTime(0);
+        home2.setEndTime(work.getStartTime().seconds()-40*60);
+
         //逛超市40分钟
         Activity shopping=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("shopping", coordShopping);
         shopping.setStartTime(work.getEndTime().seconds()+40*60);
         shopping.setEndTime(shopping.getStartTime().seconds()+40*60);
 
-        //设置出门时间 提早40分钟出门
-        Activity home2=_scenario.getPopulation().getFactory()
-                .createActivityFromCoord("home",home.getCoord());
-        home2.setEndTime(work.getStartTime().seconds()-40*60);
+        //回家
+        home.setStartTime(shopping.getEndTime().seconds()+40*60);
 
         plan2.addActivity(home2);
         Leg hw=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -66,6 +74,7 @@ public class CreatePlans {
         //设置出门时间 提早40分钟出门
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime(work.getStartTime().seconds()-40*60);
 
         //逛超市40分钟
@@ -73,6 +82,8 @@ public class CreatePlans {
                 .createActivityFromCoord("leisure", coordLeisure);
         leisure.setStartTime(work.getEndTime().seconds()+40*60);
         leisure.setEndTime(leisure.getStartTime().seconds()+2*60*60);
+
+        home.setStartTime(leisure.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hw=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -97,7 +108,10 @@ public class CreatePlans {
         //设置出门时间 提早40分钟出门
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime(study.getStartTime().seconds()-40*60);
+
+        home.setStartTime(study.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hs=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -117,6 +131,7 @@ public class CreatePlans {
         //设置出门时间 提早40分钟出门
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime(study.getStartTime().seconds()-40*60);
 
         //中午出去外面休息一下，吃个饭
@@ -128,8 +143,11 @@ public class CreatePlans {
         //两点回学校，开始上课
         Activity study1=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("study",study.getCoord());
-        study1.setStartTime(study1.getStartTime().seconds()+6*60*60);
+        study1.setStartTime(study.getStartTime().seconds()+6*60*60);
         study1.setEndTime(study.getEndTime().seconds());
+
+        //回家
+        home.setStartTime(study1.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hs=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -155,6 +173,7 @@ public class CreatePlans {
         //设置出门时间 提早40分钟出门
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime(study.getStartTime().seconds()-40*60);
 
         //中午出去外面休息一下，吃个饭
@@ -168,6 +187,9 @@ public class CreatePlans {
                 .createActivityFromCoord("study",study.getCoord());
         study1.setStartTime(study.getStartTime().seconds()+5*60*60);
         study1.setEndTime(study.getEndTime().seconds());
+
+        //回家
+        home.setStartTime(study1.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hs=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -193,6 +215,7 @@ public class CreatePlans {
         //设置出门时间 提早40分钟出门
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime(study.getStartTime().seconds()-30*60);
 
         //中午直接回家，休息到1:30，去学校
@@ -206,6 +229,9 @@ public class CreatePlans {
                 .createActivityFromCoord("study",study.getCoord());
         study1.setStartTime(study.getStartTime().seconds()+6*60*60);
         study1.setEndTime(study.getEndTime().seconds());
+
+        //回家
+        home.setStartTime(study1.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hSTD=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -233,6 +259,7 @@ public class CreatePlans {
         //设置出门时间 提早40分钟出门，载孩子去学校
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime(study.getStartTime().seconds()-40*60);
 
         //去好学校后，工作
@@ -240,6 +267,9 @@ public class CreatePlans {
                 .createActivityFromCoord("work",work.getCoord());
         work1.setStartTime(study.getStartTime().seconds()-5*60);
         work1.setEndTime(work.getEndTime().seconds());
+
+        //回家
+        home.setStartTime(work1.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hSTD=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -262,6 +292,7 @@ public class CreatePlans {
         //设置出门时间 提早40分钟出门，载孩子去学校
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime(work.getStartTime().seconds()-40*60);
 
         //去好学校后，工作
@@ -269,6 +300,9 @@ public class CreatePlans {
                 .createActivityFromCoord("work", work.getCoord());
         work1.setStartTime(work.getStartTime().seconds());
         work1.setEndTime(study.getEndTime().seconds()-40*60);
+
+        //回家
+        home.setStartTime(work1.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hw=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -291,6 +325,7 @@ public class CreatePlans {
         //设置出门时间 提早30分钟出门
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime(study.getStartTime().seconds()-30*60);
 
         //去好学校后，工作
@@ -315,6 +350,9 @@ public class CreatePlans {
                 .createActivityFromCoord("work",work.getCoord());
         work2.setStartTime(study1.getEndTime().seconds()-25*60);
         work2.setEndTime(work.getEndTime().seconds());
+
+        //回家
+        home.setStartTime(work2.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hSTD=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -357,12 +395,17 @@ public class CreatePlans {
         //随机出门时间
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime((rnd.nextInt(10)+8)*60*60);
 
         //去快乐
         Activity leisure=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("leisure", coordLeisure);
+        leisure.setStartTime(10*60*60);
         leisure.setEndTime(homeOrigin.getEndTime().seconds()+rnd.nextInt(4)*60*60);
+
+        //回家
+        home.setStartTime(leisure.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hl=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -383,12 +426,17 @@ public class CreatePlans {
         //随机出门时间
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime((rnd.nextInt(10)+8)*60*60);
 
         //去超市
         Activity shopping=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("shopping", coordShopping);
+        shopping.setStartTime(9*60*60);
         shopping.setEndTime(homeOrigin.getEndTime().seconds()+1*60*60);
+
+        //回家
+        home.setStartTime(shopping.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hs=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -409,11 +457,13 @@ public class CreatePlans {
         //随机出门时间
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime((rnd.nextInt(10)+8)*60*60);
 
         //去快乐
         Activity leisure=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("leisure", coordLeisure);
+        leisure.setStartTime(10*60*60);
         leisure.setEndTime(homeOrigin.getEndTime().seconds()+rnd.nextInt(3)*60*60);
 
         //去超市
@@ -421,6 +471,9 @@ public class CreatePlans {
                 .createActivityFromCoord("shopping", coordShopping);
         shopping.setStartTime(leisure.getEndTime().seconds()+30*60);
         shopping.setEndTime(shopping.getStartTime().seconds()+1*60*60);
+
+        //回家
+        home.setStartTime(shopping.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hl=_scenario.getPopulation().getFactory().createLeg(mode);
@@ -444,6 +497,7 @@ public class CreatePlans {
         //提前40分钟出门
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
+        homeOrigin.setStartTime(0);
         homeOrigin.setEndTime(study.getStartTime().seconds()-40*60);
 
         //带孙子孙女去学校
@@ -473,6 +527,7 @@ public class CreatePlans {
         //去快乐
         Activity leisure=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("leisure", coordLeisure);
+        leisure.setStartTime(10*60*60);
         leisure.setEndTime(homeOrigin.getEndTime().seconds()+rnd.nextInt(3)*60*60);
 
         //去接孙子孙女
@@ -480,6 +535,9 @@ public class CreatePlans {
                 .createActivityFromCoord("study", study.getCoord());
         study3.setStartTime(study2.getStartTime().seconds()+3*60*60);
         study3.setEndTime(study3.getStartTime().seconds()+10*60);
+
+        //回家
+        home.setStartTime(study3.getEndTime().seconds()+40*60);
 
         plan.addActivity(homeOrigin);
         Leg hSTD=_scenario.getPopulation().getFactory().createLeg(mode);

@@ -36,7 +36,8 @@ public class CSVManager {
         List<String[]> result=new ArrayList<>();
         try {
             InputStreamReader is = new InputStreamReader(new FileInputStream(fileName), "utf-8");
-            CSVParser csvParser = new CSVParserBuilder().withSeparator('\t').build();
+            //CSVParser csvParser = new CSVParserBuilder().withSeparator('\t').build();
+            CSVParser csvParser = new CSVParserBuilder().withSeparator(',').build();
             CSVReader reader = new CSVReaderBuilder(is).withCSVParser(csvParser).build();
             result = reader.readAll();
         } catch (UnsupportedEncodingException e) {

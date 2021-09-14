@@ -4,6 +4,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.MultiLineString;
 import org.locationtech.jts.geom.Point;
+import scala.Int;
 
 import java.util.*;
 
@@ -54,7 +55,7 @@ public class NetworkGraphBuilder {
     }
 
     private ArrayList<SingleLink> Build(){
-        ArrayList<SingleLink>linkResult=new ArrayList<>(_lineStrings.length);
+        ArrayList<SingleLink>linkResult=new ArrayList<>();
         LineString[] lsSpan=new LineString[_lineStrings.length];
         for (int i = 0; i < lsSpan.length; i++) {
             Point[] endsPts={_lineStrings[i].getStartPoint(),_lineStrings[i].getEndPoint()};
@@ -67,9 +68,17 @@ public class NetworkGraphBuilder {
 
             var s=_pointsToVertices.get(endsPts[0]);
             var e=_pointsToVertices.get(endsPts[1]);
+            int id=linkResult.size();
 
-            SingleLink singleLink=new SingleLink(i, s,e,ROADLEVEL.SECONDARYROAD, _lineStrings[i]);
-            linkResult.add(singleLink);
+            SingleLink singleLink=new SingleLink(id, s,e,ROADLEVEL.SECONDARYROAD, _lineStrings[i]);
+            if (singleLink.onewayNum==2){
+                linkResult.add(singleLink);
+                SingleLink singleLink_reverse=new SingleLink(id+1, e,s, singleLink.length,
+                        singleLink.freeSpeed, singleLink.capacity, singleLink.permlanes, 1, singleLink.modes, singleLink.roadlevel);
+                linkResult.add(singleLink_reverse);
+            }else{
+                linkResult.add(singleLink);
+            }
         }
         return linkResult;
     }
@@ -98,6 +107,7 @@ public class NetworkGraphBuilder {
         List<HashMap<String,String>> NodeXmlStringDicArray=new ArrayList<HashMap<String,String>>(linkArray.size());
         for (int i = 0; i < linkArray.size(); i++) {
             var temp_node=linkArray.get(i);
+            var debug=temp_node.xmlStringDic;
             NodeXmlStringDicArray.add(temp_node.xmlStringDic);
         }
         return NodeXmlStringDicArray;

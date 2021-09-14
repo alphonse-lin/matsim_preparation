@@ -46,7 +46,7 @@ public class CompositeFacility {
      * @description attach value
      */
     private GeoJSONData ReadGeojson(String filePath) throws IOException {
-        var data = GeoJSONManager.Read(filePath, new String[]{"brepID", "buildingID", "subiteID", "blockID","function"});
+        var data = GeoJSONManager.Read(filePath, new String[]{"function"});
         return data;
     }
 

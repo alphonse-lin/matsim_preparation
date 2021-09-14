@@ -29,3 +29,7 @@ hs_err_pid*
 *.gh
 *.txt
 /src/main/resources/output
+/src/main/resources
+/target
+*.png
+*.gh

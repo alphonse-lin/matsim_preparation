@@ -1,3 +1,4 @@
+import matsim.basic.Preparation;
 import matsim.basic.plansCalc.CreateDemand;
 
 public class program {
@@ -126,20 +127,29 @@ public class program {
          */
 
         //生成所有
-        String roadPath="src/main/resources/road.geojson";
-        String buildingPath="src/main/resources/building.geojson";
+        String roadPath=ChangeRoad("E:\\114_temp\\008_代码集\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\berlinTest\\network.geojson");
+        String buildingPath=ChangeRoad("E:\\114_temp\\008_代码集\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\berlinTest\\building.geojson");
 
         String networkXML="src/main/resources/network.xml";
-        String populationCSV="src/main/resources/population.csv";
         String facilityCSV="src/main/resources/facilities.csv";
-//        Preparation preparation=new Preparation(roadPath,buildingPath);
-//        preparation.Calculate(networkXML,facilityCSV,populationCSV);
+        String populationCSV="src/main/resources/population.csv";
 
+        //第一阶段生成数据：network.xml, facilityCSV, populationCSV
+        Preparation preparation=new Preparation(roadPath,buildingPath);
+        preparation.Calculate(networkXML,facilityCSV,populationCSV);
+
+        //第二阶段生数据：plans.xml
         String plansXML="src/main/resources/plans.xml";
         CreateDemand createDemand=new CreateDemand(populationCSV,facilityCSV,networkXML);
         createDemand.Run(plansXML);
 
         System.out.println("运行时间："+ (System.currentTimeMillis() - start));
+    }
 
+    public static String ChangeRoad(String path){
+        if(path.contains("\\\\")){
+            return path.replaceAll("\\\\", "/");
+        }
+        else{return path;}
     }
 }

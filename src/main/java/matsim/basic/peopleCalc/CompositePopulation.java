@@ -11,14 +11,14 @@ public class CompositePopulation {
     private final AGE[] _ageGroup=new AGE[]{
         AGE.age0_4,AGE.age5_14,AGE.age15_24,AGE.age25_34,AGE.age35_64,AGE.age65_79,AGE.age80_85};
     private final Double[] _agePercent=new Double[]{0.043,0.085,0.2413,0.2540,0.3437,0.0298,0.0032};
-
+    private final Double popRatio=0.1d;
     private int[] _popInEachBuilding;
     private AGE[][] _popAge;
 
     public SinglePeople[][] popResult;
     
     public CompositePopulation(CalculatePopulation result){
-        _popInEachBuilding=CalcPopInBuilding(result.populationCount);
+        _popInEachBuilding=CalcPopInBuilding(result.populationCount,popRatio);
         _popAge=PercentageRandom(_popInEachBuilding);
 
         popResult=CalcAllPeople(_popAge);
@@ -77,10 +77,10 @@ public class CompositePopulation {
       * @Param: null
      * @return  
     */
-    private int[] CalcPopInBuilding(Double[] popInput){
+    private int[] CalcPopInBuilding(Double[] popInput, Double popRatio){
         var result=new int[popInput.length];
         for (int i = 0; i < popInput.length; i++) {
-            result[i]= (int) Math.round(popInput[i]);
+            result[i]= (int) Math.round(popInput[i]*popRatio);
         }
         return result;
     }

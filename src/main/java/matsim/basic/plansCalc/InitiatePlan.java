@@ -44,7 +44,7 @@ public class InitiatePlan {
         Double wOpenPeriod=wCloseTime-wCloseTime;
 
         //创建所有计划通用的活动
-        Activity work=scenario.getPopulation().getFactory().createActivityFromCoord("w", coordWork);
+        Activity work=scenario.getPopulation().getFactory().createActivityFromCoord("work", coordWork);
 
         //创建一天中的最后一个活动：回家
         Activity home=scenario.getPopulation().getFactory()
@@ -117,7 +117,7 @@ public class InitiatePlan {
 
 
         //创建所有计划通用的活动
-        Activity work=scenario.getPopulation().getFactory().createActivityFromCoord("w", coordWork);
+        Activity work=scenario.getPopulation().getFactory().createActivityFromCoord("work", coordWork);
 
         //创建一天中的最后一个活动：回家
         Activity home=scenario.getPopulation().getFactory()

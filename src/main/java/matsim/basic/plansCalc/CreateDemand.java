@@ -236,9 +236,12 @@ public class CreateDemand {
                     case "jhighsch":
                     case "shighsch":
                     case "university":
-                        plans.add(CreatePlans.Create_HWH(_scenario, work, home, mode));
-                        plans.add(CreatePlans.Create_HWSH(_scenario,work,home,coordShopping,mode));
-                        plans.add(CreatePlans.Create_HWLH(_scenario,work,home,coordLeisure,mode));
+                        if (work.getEndTime().seconds()>79200){
+                            plans.add(CreatePlans.Create_HWH(_scenario, work, home, mode));
+                        }else{
+                            plans.add(CreatePlans.Create_HWSH(_scenario,work,home,coordShopping,mode));
+                            plans.add(CreatePlans.Create_HWLH(_scenario,work,home,coordLeisure,mode));
+                        }
                         break;
                 }
                 break;
@@ -248,8 +251,11 @@ public class CreateDemand {
                     case "jhighsch":
                     case "shighsch":
                     case "university":
-                        plans.add(CreatePlans.Create_HWH(_scenario, work, home, mode));
-                        plans.add(CreatePlans.Create_HWSH(_scenario,work,home,coordShopping,mode));
+                        if (work.getEndTime().seconds()>79200){
+                            plans.add(CreatePlans.Create_HWH(_scenario, work, home, mode));
+                        }else{
+                            plans.add(CreatePlans.Create_HWSH(_scenario,work,home,coordShopping,mode));
+                        }
                         break;
                 }
                 break;

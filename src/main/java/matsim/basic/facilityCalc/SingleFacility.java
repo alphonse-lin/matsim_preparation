@@ -37,7 +37,7 @@ public class SingleFacility {
                 this.siteType=FACILITY.Work;
                 break;
             case "H0":
-                this.start="0";
+                this.start="1";
                 this.end="8";
                 this.siteType=FACILITY.Work;
                 break;
@@ -72,7 +72,7 @@ public class SingleFacility {
                 this.siteType=FACILITY.Work;
                 break;
             case "M0":
-                this.start="0";
+                this.start="1";
                 this.end="8";
                 this.siteType=FACILITY.Work;
                 break;

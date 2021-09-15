@@ -293,6 +293,7 @@ public class CreatePlans {
         Activity homeOrigin=_scenario.getPopulation().getFactory()
                 .createActivityFromCoord("home",home.getCoord());
         homeOrigin.setStartTime(0);
+        var debug=work.getStartTime().seconds();
         homeOrigin.setEndTime(work.getStartTime().seconds()-40*60);
 
         //去好学校后，工作

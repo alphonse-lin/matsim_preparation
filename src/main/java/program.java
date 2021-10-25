@@ -1,5 +1,9 @@
+import matsim.IO.FileManager;
 import matsim.basic.Preparation;
 import matsim.basic.plansCalc.CreateDemand;
+import org.matsim.run.NetworkCleaner;
+
+import java.io.File;
 
 public class program {
     public static void main(String[] args) throws Exception {
@@ -127,21 +131,29 @@ public class program {
          */
 
         //生成所有
-        String roadPath=ChangeRoad("E:\\114_temp\\008_代码集\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\berlinTest\\network.geojson");
-        String buildingPath=ChangeRoad("E:\\114_temp\\008_代码集\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\berlinTest\\building.geojson");
+        String roadPath=ChangeRoad("E:\\114_temp\\008_代码集\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\mawanTest\\road.geojson");
+        String buildingPath=ChangeRoad("E:\\114_temp\\008_代码集\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\mawanTest\\buidling.geojson");
 
-        String networkXML="src/main/resources/network.xml";
-        String facilityCSV="src/main/resources/facilities.csv";
-        String populationCSV="src/main/resources/population.csv";
+        String tempNetworkXML="src/main/resources/temp_network_mawan.xml";
+        String cleanedNetworkXML="src/main/resources/network_mawan.xml";
+        String facilityCSV="src/main/resources/facilities_mawan.csv";
+        String populationCSV="src/main/resources/population_mawan.csv";
 
         //第一阶段生成数据：network.xml, facilityCSV, populationCSV
         Preparation preparation=new Preparation(roadPath,buildingPath);
-        preparation.Calculate(networkXML,facilityCSV,populationCSV);
+        preparation.Calculate(tempNetworkXML,facilityCSV,populationCSV);
+
+        //clean road
+        var cleanNetwork = new NetworkCleaner();
+        cleanNetwork.run(tempNetworkXML, cleanedNetworkXML);
 
         //第二阶段生数据：plans.xml
-        String plansXML="src/main/resources/plans.xml";
-        CreateDemand createDemand=new CreateDemand(populationCSV,facilityCSV,networkXML);
+        String plansXML="src/main/resources/plans_mawan.xml";
+        CreateDemand createDemand=new CreateDemand(populationCSV,facilityCSV,cleanedNetworkXML);
         createDemand.Run(plansXML);
+
+        //delete unnesseary files
+        FileManager.DeleteFiles(new String[]{tempNetworkXML, facilityCSV, populationCSV});
 
         System.out.println("运行时间："+ (System.currentTimeMillis() - start));
     }

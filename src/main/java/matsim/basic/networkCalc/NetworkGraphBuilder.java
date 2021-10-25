@@ -66,6 +66,7 @@ public class NetworkGraphBuilder {
                 }
             }
 
+            //get the node id in NodeDic
             var s=_pointsToVertices.get(endsPts[0]);
             var e=_pointsToVertices.get(endsPts[1]);
             int id=linkResult.size();

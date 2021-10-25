@@ -14,10 +14,17 @@ public class SingleNode {
 
     public SingleNode(int Id, Point pt){
         this.Id=Id;
+//        this.coordX=Round(pt.getX());
+//        this.coordY=Round(pt.getY());
         this.coordX=pt.getX();
         this.coordY=pt.getY();
 
         this.xmlStringDic=ConstructDic();
+    }
+
+    private double Round(double data){
+        String s = String.format("%.6f", data);
+        return Double.parseDouble(s);
     }
 
     private LinkedHashMap<String,String> ConstructDic(){

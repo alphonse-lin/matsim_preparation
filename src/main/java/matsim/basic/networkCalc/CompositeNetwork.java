@@ -6,6 +6,9 @@ import org.geotools.feature.FeatureIterator;
 import org.jdom2.Element;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.PrecisionModel;
+import org.locationtech.jts.precision.GeometryPrecisionReducer;
+import org.matsim.run.NetworkCleaner;
 import org.opengis.feature.Feature;
 import org.opengis.feature.simple.SimpleFeature;
 
@@ -21,8 +24,10 @@ public class CompositeNetwork {
 
     public CompositeNetwork(String filePath) throws IOException {
         _geo=ReadGeojson(filePath);
-        _network=ConvertIntoLineString(_geo);
 
+        PrecisionModel pm= new PrecisionModel(1000000);
+        GeometryPrecisionReducer reducer=new GeometryPrecisionReducer(pm);
+        _network=ConvertIntoLineString(_geo, reducer);
         NetworkGraphBuilder builder=new NetworkGraphBuilder(_network);
         _nodeXmlStringDic=builder.NodeXmlStringDic;
         _linkXmlStringDic=builder.LinkXmlStringDic;
@@ -34,10 +39,11 @@ public class CompositeNetwork {
         return result;
     }
 
-    private LineString[] ConvertIntoLineString(Geometry[] data){
+    private LineString[] ConvertIntoLineString(Geometry[] data, GeometryPrecisionReducer reducer){
         LineString[] result=new LineString[data.length];
         for (int i = 0; i < data.length; i++) {
-            result[i]=(LineString) data[i];
+            var l=reducer.reduce(data[i]);
+            result[i]=(LineString) l;
         }
         return result;
     }

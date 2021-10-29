@@ -5,6 +5,7 @@ public enum ROADLEVEL {
     MAINROAD,
     SECONDARYROAD,
     BRANCH,
-    RAILWAY,
+    TRAIN,
+    TRAM,
     BUSLANE
 }

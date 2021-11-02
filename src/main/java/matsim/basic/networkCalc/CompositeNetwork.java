@@ -2,6 +2,7 @@ package matsim.basic.networkCalc;
 
 import matsim.IO.GeoJSONManager;
 import matsim.IO.XMLManager;
+import org.apache.commons.lang3.ArrayUtils;
 import org.geotools.feature.FeatureIterator;
 import org.jdom2.Element;
 import org.locationtech.jts.geom.Geometry;
@@ -24,6 +25,20 @@ public class CompositeNetwork {
 
     public CompositeNetwork(String filePath) throws IOException {
         _geo=ReadGeojson(filePath);
+
+        PrecisionModel pm= new PrecisionModel(1000000);
+        GeometryPrecisionReducer reducer=new GeometryPrecisionReducer(pm);
+        _network=ConvertIntoLineString(_geo, reducer);
+        NetworkGraphBuilder builder=new NetworkGraphBuilder(_network);
+        _nodeXmlStringDic=builder.NodeXmlStringDic;
+        _linkXmlStringDic=builder.LinkXmlStringDic;
+    }
+
+    public CompositeNetwork(String roadFilePath, String publicTranFilePath) throws IOException {
+        var road=ReadGeojson(roadFilePath);
+        var publicTrans=ReadGeojson(publicTranFilePath);
+
+        _geo= ArrayUtils.addAll(road, publicTrans);
 
         PrecisionModel pm= new PrecisionModel(1000000);
         GeometryPrecisionReducer reducer=new GeometryPrecisionReducer(pm);

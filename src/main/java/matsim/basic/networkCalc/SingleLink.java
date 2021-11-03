@@ -103,7 +103,7 @@ public class SingleLink {
             case BRANCH:
                 speed=Speed[3];
                 break;
-            case RAILWAY:
+            case TRAIN:
                 speed=Speed[4];
                 break;
             case BUSLANE:
@@ -130,7 +130,7 @@ public class SingleLink {
             case BRANCH:
                 capacity=Capacity[3]*length;
                 break;
-            case RAILWAY:
+            case TRAIN:
                 capacity=Capacity[4]*length;
                 break;
             case BUSLANE:
@@ -154,7 +154,7 @@ public class SingleLink {
             case BRANCH:
                 lanesNum=LaneNum[3];
                 break;
-            case RAILWAY:
+            case TRAIN:
                 lanesNum=LaneNum[4];
                 break;
             case BUSLANE:
@@ -180,7 +180,7 @@ public class SingleLink {
             case BRANCH:
                 oneway=OneWayNum[3];
                 break;
-            case RAILWAY:
+            case TRAIN:
                 oneway=OneWayNum[4];
                 break;
             case BUSLANE:
@@ -204,7 +204,7 @@ public class SingleLink {
             case BRANCH:
                 mode="car,taxi,walk";
                 break;
-            case RAILWAY:
+            case TRAIN:
                 mode="train";
             case BUSLANE:
                 mode="bus";

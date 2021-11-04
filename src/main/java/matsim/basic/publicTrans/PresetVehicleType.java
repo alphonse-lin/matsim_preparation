@@ -1,6 +1,6 @@
 package matsim.basic.publicTrans;
 
-public class VehicleTypeToXML {
+public class PresetVehicleType {
     private VEHICLETYPE _vehicletype;
     public String id;
     public String vType;
@@ -16,7 +16,7 @@ public class VehicleTypeToXML {
     public int timeSpan;
     public String networkMode;
 
-    public VehicleTypeToXML(VEHICLETYPE vehicletype){
+    public PresetVehicleType(VEHICLETYPE vehicletype){
         attachVehicle(vehicletype);
     }
 

@@ -14,7 +14,7 @@
         <maven.compiler.target>11</maven.compiler.target>
         <!--release:-->
         <matsim.version>13.0</matsim.version>
-        <matsim-examples.version>14.0-SNAPSHOT</matsim-examples.version>
+<!--        <matsim-examples.version>14.0-SNAPSHOT</matsim-examples.version>-->
     </properties>
 
     <dependencies>
@@ -84,12 +84,12 @@
             <scope>test</scope>
         </dependency>
 
-        <!--to get ExamplesUtils:-->
-        <dependency>
-            <groupId>org.matsim</groupId>
-            <artifactId>matsim-examples</artifactId>
-            <version>${matsim-examples.version}</version>
-        </dependency>
+<!--        &lt;!&ndash;to get ExamplesUtils:&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.matsim</groupId>-->
+<!--            <artifactId>matsim-examples</artifactId>-->
+<!--            <version>${matsim-examples.version}</version>-->
+<!--        </dependency>-->
 
         <!-- Include some MATSim extensions -->
         <dependency>

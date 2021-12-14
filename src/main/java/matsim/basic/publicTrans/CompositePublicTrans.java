@@ -72,7 +72,9 @@ public class CompositePublicTrans {
     //endregion
 
     //region 创建vehicleSchedule
-    
+    private void createVehicleSchedule(){
+
+    }
 
     //endregion
 }

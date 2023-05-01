@@ -15,7 +15,7 @@ public class CompositePublicTrans {
         VEHICLETYPE[] vehicletypes=new VEHICLETYPE[]{VEHICLETYPE.BUS,VEHICLETYPE.SUBWAY};
         int[] counts=new int[]{20,30};
         var debug=new CompositePublicTrans();
-        String outputPath="E:\\114_temp\\008_代码集\\005_java\\matsim_preparation\\src\\main\\resources\\vehicles_mawan.xml";
+        String outputPath="src/main/resources/vehicles_mawan.xml";
 
         VehicleTypeManager vehicleTypeManager =new VehicleTypeManager(vehicletypes, counts);
         debug.createVehicles(vehicleTypeManager.VehicleTypes,counts);

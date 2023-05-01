@@ -131,13 +131,13 @@ public class program {
          */
 
         //生成所有
-        String roadPath=ChangeRoad("E:\\114_temp\\008_代码集\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\mawanTest\\road.geojson");
-        String buildingPath=ChangeRoad("E:\\114_temp\\008_代码集\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\mawanTest\\buidling.geojson");
+        String roadPath=ChangeRoad("src/main/resources/debug/tq38_london/r_1000/0nd.geojson");
+        String buildingPath=ChangeRoad("src/main/resources/debug/tq38_london/building_1.geojson");
 
-        String tempNetworkXML="src/main/resources/temp_network_mawan.xml";
-        String cleanedNetworkXML="src/main/resources/network_mawan.xml";
-        String facilityCSV="src/main/resources/facilities_mawan.csv";
-        String populationCSV="src/main/resources/population_mawan.csv";
+        String tempNetworkXML="src/main/resources/output_ucl/001/r_1000/0th/temp_network.xml";
+        String cleanedNetworkXML="src/main/resources/output_ucl/001/r_1000/0th/network.xml";
+        String facilityCSV="src/main/resources/output_ucl/001/r_1000/0th/facilities.csv";
+        String populationCSV="src/main/resources/output_ucl/001/r_1000/0th/population.csv";
 
         //第一阶段生成数据：network.xml, facilityCSV, populationCSV
         Preparation preparation=new Preparation(roadPath,buildingPath);
@@ -148,7 +148,7 @@ public class program {
         cleanNetwork.run(tempNetworkXML, cleanedNetworkXML);
 
         //第二阶段生数据：plans.xml
-        String plansXML="src/main/resources/plans_mawan.xml";
+        String plansXML="src/main/resources/output_ucl/001/r_1000/0th/plans.xml";
         CreateDemand createDemand=new CreateDemand(populationCSV,facilityCSV,cleanedNetworkXML);
         createDemand.Run(plansXML);
 

@@ -35,17 +35,17 @@
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-epsg-hsql</artifactId>
-            <version>22-RC</version>
+            <version>27.2</version>
         </dependency>
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-main</artifactId>
-            <version>22-RC</version>
+            <version>27.2</version>
         </dependency>
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-geojson</artifactId>
-            <version>22-RC</version>
+            <version>27.2</version>
         </dependency>
 
         <!-- add pgsql -->
@@ -161,13 +161,13 @@
 
     <repositories>
         <repository>
-            <id>geotools</id>
-            <name>geotools</name>
-            <url>http://maven.icm.edu.pl/artifactory/repo/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
+            <id>osgeo</id>
+            <name>OSGeo Release Repository</name>
+            <url>https://repo.osgeo.org/repository/release/</url>
+            <snapshots><enabled>false</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
         </repository>
+
 
         <repository>
             <!-- Repository for MATSim releases and snapshots (MATSim is not on Maven central) -->

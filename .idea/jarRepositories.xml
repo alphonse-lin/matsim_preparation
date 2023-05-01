@@ -42,6 +42,11 @@
       <option name="url" value="http://repo.opengeo.org" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="osgeo" />
+      <option name="name" value="OSGeo Release Repository" />
+      <option name="url" value="https://repo.osgeo.org/repository/release/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="geotools" />
       <option name="name" value="geotools" />
       <option name="url" value="http://maven.icm.edu.pl/artifactory/repo/" />

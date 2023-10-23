@@ -12,6 +12,7 @@ public class CalculatePopulation {
     private Map<String, ArrayList<BasePopulation>> populationValueDic;
     private ArrayList<Double[]> pp_intervalLayer;
     private String _url, _user, _password, _sql;
+    private String _xmlPath;
 
     public CalculatePopulation(String url, String user, String password, String sql, String jsonPath) throws IOException {
         _url=url;
@@ -24,8 +25,21 @@ public class CalculatePopulation {
         populationCount = CalculateAll_Population(readFromJSON.funcList, readFromJSON.layerList, readFromJSON.areaList);
     }
 
+    public CalculatePopulation(String xmlPath, String jsonPath) throws IOException {
+        _xmlPath=xmlPath;
+        ExtractDataFromJSON readFromJSON = new ExtractDataFromJSON(jsonPath);
+
+        Start(_xmlPath);
+        populationCount = CalculateAll_Population(readFromJSON.funcList, readFromJSON.layerList, readFromJSON.areaList);
+    }
+
     private void Start(){
         this.populationValueDic=ExtractData_Population();
+        this.pp_intervalLayer = GenerateLayerCollection(populationValueDic, "R");
+    }
+
+    private void Start(String XMLPath){
+        this.populationValueDic=ExtractData_PopulationFromXML(XMLPath);
         this.pp_intervalLayer = GenerateLayerCollection(populationValueDic, "R");
     }
 
@@ -39,7 +53,7 @@ public class CalculatePopulation {
         var length=funcList.length;
         Double[] PopulationList = new Double[length];
         for (int i = 0; i < length; i++) {
-            PopulationList[i]=CalculatePopulation(funcList[i], Double.parseDouble(areaList[i]), Integer.parseInt(layerList[i]));
+            PopulationList[i]=CalculatePopulation(funcList[i], Double.parseDouble(areaList[i]), (int)Double.parseDouble(layerList[i]));
         }
         return PopulationList;
     }
@@ -79,6 +93,21 @@ public class CalculatePopulation {
 //                "where" +
 //                " bp.bp_func_id = bf.id;";
         return PostgreSQLJDBC.SelectFromDB_Population(_url, _user, _password, _sql);
+    }
+
+    private Map<String, ArrayList<BasePopulation>> ExtractData_PopulationFromXML(String XMLPath)
+    {
+//        String url="jdbc:postgresql://39.107.177.223:5432/postgres";
+//        String user="postgres";
+//        String password="admin";
+//        String sql = "select " +
+//                "bp.bp_id, bp.bp_name, bp.bp_layer_min,bp.bp_layer_max, bp.bp_people, bp.bp_far_min, bp.bp_far_max," +
+//                "bp.bp_density_max,bp.bp_green_min,bp.bp_height_max,bf.name, bf.relative_name " +
+//                "from " +
+//                "building_population bp, building_functions bf " +
+//                "where" +
+//                " bp.bp_func_id = bf.id;";
+        return XMLManager.parseXML(XMLPath);
     }
 
     /**

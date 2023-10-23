@@ -131,16 +131,22 @@ public class program {
          */
 
         //生成所有
-        String roadPath=ChangeRoad("src/main/resources/debug/tq38_london/r_1000/0nd.geojson");
-        String buildingPath=ChangeRoad("src/main/resources/debug/tq38_london/building_1.geojson");
+//        String inputDir="src/main/resources/debug/tq38_london_strategy/001_input"+File.separator;
+//        String outputDir="src/main/resources/debug/tq38_london_strategy_urbanxtools"+File.separator;
+        String inputDir="D:\\Code\\114_temp\\008_CodeCollection\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\tq38_london_strategy\\001_input"+File.separator;
+        String outputDir="D:\\Code\\114_temp\\008_CodeCollection\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\tq38_london_strategy_urbanxtools"+File.separator;
 
-        String tempNetworkXML="src/main/resources/output_ucl/001/r_1000/0th/temp_network.xml";
-        String cleanedNetworkXML="src/main/resources/output_ucl/001/r_1000/0th/network.xml";
-        String facilityCSV="src/main/resources/output_ucl/001/r_1000/0th/facilities.csv";
-        String populationCSV="src/main/resources/output_ucl/001/r_1000/0th/population.csv";
+        String roadPath=ChangeRoad(inputDir+"roadnetwork.geojson");
+        String buildingPath=ChangeRoad(inputDir+"building.geojson");
+        String xmlPath=ChangeRoad("C:\\Users\\AlphonsePC\\AppData\\Roaming\\Grasshopper\\Libraries\\UrbanXTools\\data\\indexCalculation.xml");
+
+        String tempNetworkXML=outputDir+"temp_network.xml";
+        String cleanedNetworkXML=outputDir+"network.xml";
+        String facilityCSV=outputDir+"facilities.csv";
+        String populationCSV=outputDir+"population.csv";
 
         //第一阶段生成数据：network.xml, facilityCSV, populationCSV
-        Preparation preparation=new Preparation(roadPath,buildingPath);
+        Preparation preparation=new Preparation(xmlPath, roadPath,buildingPath);
         preparation.Calculate(tempNetworkXML,facilityCSV,populationCSV);
 
         //clean road
@@ -148,7 +154,7 @@ public class program {
         cleanNetwork.run(tempNetworkXML, cleanedNetworkXML);
 
         //第二阶段生数据：plans.xml
-        String plansXML="src/main/resources/output_ucl/001/r_1000/0th/plans.xml";
+        String plansXML=outputDir+"plans.xml";
         CreateDemand createDemand=new CreateDemand(populationCSV,facilityCSV,cleanedNetworkXML);
         createDemand.Run(plansXML);
 

@@ -12,16 +12,24 @@ import java.io.IOException;
 public class Preparation {
     private String _roadFilePath;
     private String _buildingFilePath;
+    private String _xmlPath;
 
     public Preparation(String RoadFilePath, String BuildingFilePath) throws Exception {
         this._roadFilePath=RoadFilePath;
         this._buildingFilePath=BuildingFilePath;
     }
 
+    public Preparation(String XMLPath, String RoadFilePath, String BuildingFilePath) throws Exception {
+        this._roadFilePath=RoadFilePath;
+        this._buildingFilePath=BuildingFilePath;
+        this._xmlPath=XMLPath;
+    }
+
     public void Calculate(String exportXML_Network, String exportCSV_Facility,String exportCSV_Population) throws Exception {
         GenerateNetwork(this._roadFilePath, exportXML_Network);
         GenerateFacilities(this._buildingFilePath,exportCSV_Facility);
-        GeneratePopulation(this._buildingFilePath,exportCSV_Population);
+//        GeneratePopulation(this._buildingFilePath,exportCSV_Population);
+        GeneratePopulation(this._xmlPath,this._buildingFilePath,exportCSV_Population);
     }
 
     private void GenerateNetwork(String geojsonPath, String exportPath) throws Exception {
@@ -39,7 +47,7 @@ public class Preparation {
     }
 
     private void GeneratePopulation(String geojsonPath, String exportCSV) throws IOException {
-        String url="jdbc:postgresql://39.107.177.223:5432/postgres";
+        String url="jdbc:postgresql://39.107.177.223:5432/matsim";
         String user="postgres";
         String password="admin";
         String sql = "select " +
@@ -51,6 +59,18 @@ public class Preparation {
                 " bp.bp_func_id = bf.id;";
 
         CalculatePopulation result_pop=new CalculatePopulation(url, user, password, sql, geojsonPath);
+        var result_popStructure=new CompositePopulation(result_pop);
+        var exportData=CompositePopulation.ExportAsCSVStringArray(result_popStructure.popResult);
+
+        CSVManager.Write(exportCSV,exportData,
+                new String[]{"id", "buildingID","personID",
+                        "age","education",
+                        "trans01","trans02","trans03","lifeType"
+                });
+    }
+
+    private void GeneratePopulation(String XMLpath, String geojsonPath, String exportCSV) throws IOException {
+        CalculatePopulation result_pop=new CalculatePopulation(XMLpath, geojsonPath);
         var result_popStructure=new CompositePopulation(result_pop);
         var exportData=CompositePopulation.ExportAsCSVStringArray(result_popStructure.popResult);
 

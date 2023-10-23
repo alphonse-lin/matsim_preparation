@@ -170,7 +170,7 @@
 
 
         <repository>
-            <!-- Repository for MATSim releases and snapshots (MATSim is not on Maven central) -->
+            <!-- Repository for MATSim (MATSim is not on Maven central, releases and snapshots) -->
             <id>matsim</id>
             <url>https://repo.matsim.org/repository/matsim</url>
         </repository>

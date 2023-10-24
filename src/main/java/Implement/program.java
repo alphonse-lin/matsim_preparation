@@ -1,3 +1,5 @@
+package Implement;
+
 import matsim.IO.FileManager;
 import matsim.basic.Preparation;
 import matsim.basic.plansCalc.CreateDemand;
@@ -8,7 +10,7 @@ import java.io.File;
 public class program {
     public static void main(String[] args) throws Exception {
         Long start = System.currentTimeMillis();
-        //数据库计算
+        //database calc
         /*
         var filePath="src/main/resources/building.geojson";
 
@@ -29,7 +31,7 @@ public class program {
         CalculatePopulation result=new CalculatePopulation(url, user, password, sql, filePath);
 */
 
-        //随机数
+        //random calc
         /*
         WeightRandom<AGE> wr=new WeightRandom<AGE>();
         wr.initWeight(new AGE[]{
@@ -66,7 +68,7 @@ public class program {
         }
         */
 
-        //生成population.csv
+        //generate population.csv
         /*
         var filePath="src/main/resources/building.geojson";
 
@@ -95,20 +97,20 @@ public class program {
 
          */
 
-        //读取csv
+        //read csv
         /*
         var exportCSV="src/main/resources/population.csv";
         var result=CSVManager.Read(exportCSV);
          */
 
-        //读取geojson
+        //read geojson
         /*
         InputStream input = new FileInputStream("src/main/resources/road.geojson");
         GeoJSONManager geoRead=new GeoJSONManager();
         var data=geoRead.read(input);
          */
 
-        //生成network.xml
+        //generate network.xml
         /*
         String geojsonPath="src/main/resources/road.geojson";
         String exportXML="src/main/resources/network.xml";
@@ -117,7 +119,7 @@ public class program {
 
          */
 
-        //生成facilities.csv
+        //generate facilities.csv
         /*
         String geojsonPath="src/main/resources/building.geojson";
         CompositeFacility compositeFacility=new CompositeFacility(geojsonPath);
@@ -130,30 +132,41 @@ public class program {
                 });
          */
 
-        //生成所有
+        //generate all
 //        String inputDir="src/main/resources/debug/tq38_london_strategy/001_input"+File.separator;
 //        String outputDir="src/main/resources/debug/tq38_london_strategy_urbanxtools"+File.separator;
-        String inputDir="D:\\Code\\114_temp\\008_CodeCollection\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\tq38_london_strategy\\001_input"+File.separator;
-        String outputDir="D:\\Code\\114_temp\\008_CodeCollection\\005_java\\matsim_preparation\\src\\main\\resources\\debug\\tq38_london_strategy_urbanxtools"+File.separator;
+
+//        String inputDir="D:\\Code\\114_temp\\008_CodeCollection\\005_java\\matsim_data_backup\\debug\\tq38_london_strategy\\001_input"+File.separator;
+//        String outputDir="D:\\Code\\114_temp\\008_CodeCollection\\005_java\\matsim_data_backup\\debug\\tq38_london_strategy_urbanxtools"+File.separator;
+
+        String inputDir = "D:\\Code\\114_temp\\040_UrbanXTools\\UrbanXTools_v.3.0.1\\UrbanXTools-main\\Samples\\10_Traffic\\input\\";
+        String outputDir = "D:\\Code\\114_temp\\040_UrbanXTools\\UrbanXTools_v.3.0.1\\UrbanXTools-main\\Samples\\10_Traffic\\output\\";
+        String xmlPath="C:\\Users\\AlphonsePC\\AppData\\Roaming\\Grasshopper\\Libraries\\UrbanXTools\\data\\indexCalculation.xml";
+
+//        String inputDir = args[0];
+//        String outputDir = args[1];
+//        String xmlPath=args[2];
 
         String roadPath=ChangeRoad(inputDir+"roadnetwork.geojson");
         String buildingPath=ChangeRoad(inputDir+"building.geojson");
-        String xmlPath=ChangeRoad("C:\\Users\\AlphonsePC\\AppData\\Roaming\\Grasshopper\\Libraries\\UrbanXTools\\data\\indexCalculation.xml");
+//        String xmlPath=ChangeRoad("C:\\Users\\AlphonsePC\\AppData\\Roaming\\Grasshopper\\Libraries\\UrbanXTools\\data\\indexCalculation.xml");
 
         String tempNetworkXML=outputDir+"temp_network.xml";
         String cleanedNetworkXML=outputDir+"network.xml";
         String facilityCSV=outputDir+"facilities.csv";
         String populationCSV=outputDir+"population.csv";
-
-        //第一阶段生成数据：network.xml, facilityCSV, populationCSV
+        System.out.println("start");
+        //1st phase：network.xml, facilityCSV, populationCSV
         Preparation preparation=new Preparation(xmlPath, roadPath,buildingPath);
+        System.out.println("calculate");
         preparation.Calculate(tempNetworkXML,facilityCSV,populationCSV);
 
         //clean road
+        System.out.println("clean road");
         var cleanNetwork = new NetworkCleaner();
         cleanNetwork.run(tempNetworkXML, cleanedNetworkXML);
 
-        //第二阶段生数据：plans.xml
+        //2nd phase：plans.xml
         String plansXML=outputDir+"plans.xml";
         CreateDemand createDemand=new CreateDemand(populationCSV,facilityCSV,cleanedNetworkXML);
         createDemand.Run(plansXML);
@@ -161,7 +174,7 @@ public class program {
         //delete unnesseary files
         FileManager.DeleteFiles(new String[]{tempNetworkXML, facilityCSV, populationCSV});
 
-        System.out.println("运行时间："+ (System.currentTimeMillis() - start));
+        System.out.println("running time:"+ (System.currentTimeMillis() - start));
     }
 
     public static String ChangeRoad(String path){

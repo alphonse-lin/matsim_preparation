@@ -5,11 +5,13 @@ import org.locationtech.jts.geom.LineString;
 import javax.sound.sampled.Line;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Random;
 
 public class SingleLink {
     private final Double[] Speed=new Double[]{19.44,13.88,11.11,8.33,27.77,16.66};//70,50,40,30,100,60
     private final Double ServericeRate=0.7;
     private final Integer[] Capacity=new Integer[]{1500,1055,850,650,2100,1250};
+    private final Double carLength=4.0;
     private final Integer[] LaneNum=new Integer[]{3,3,2,1,1,1};//车道数
     private final Integer[] OneWayNum=new Integer[]{2,2,2,1,1,1};//往返车道
 
@@ -57,8 +59,10 @@ public class SingleLink {
     }
 
     private void Initiate(){
+        Random rand = new Random();
+        float float_random = (float) (2*(rand.nextFloat()-0.1));
         this.freeSpeed=FreeSpeedCalc(this.roadlevel);
-        this.capacity=CapacityCalc(this.roadlevel);
+        this.capacity=CapacityCalc(this.roadlevel,float_random);
         this.permlanes=PermlanesCalc(this.roadlevel);
         this.onewayNum=OnewayCalc(this.roadlevel);
         this.modes=ModesCalc(this.roadlevel);
@@ -114,9 +118,10 @@ public class SingleLink {
     }
 
     //based on greenberg model
-    private double CapacityCalc(ROADLEVEL level){
+    private double CapacityCalc(ROADLEVEL level, float random){
         double capacity=0;
         double length=this.length;
+//        capacity=length/(carLength+random);
         switch (level){
             case EXPRESSWAY:
                 capacity=Capacity[0]*length;
